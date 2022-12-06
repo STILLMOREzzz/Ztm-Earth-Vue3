@@ -2,6 +2,8 @@
 
 // import { locale } from 'element-plus'
 // import lang from 'element-plus/lib/locale/lang/zh-cn'
+import 'element-plus/dist/index.css';
+import ElementPlus from'element-plus'
 
 import {
   ElAlert,
@@ -166,8 +168,6 @@ const plugins = [
   ElMessageBox,
   ElNotification
 ]
-
-import ElementPlus from'element-plus'
 
 export function setupElementPlus(app){
 // 设置语言

@@ -7,7 +7,7 @@ import { setupElementPlus } from './libs/element' // element UI
 import { setupDirective } from './libs/directive/index'
 import { setupGlobalCom } from './components/index'
 
-import './assets/styles/main.less'
+import './assets/styles/index.less'
 import mitt from 'mitt';
 
 const app = createApp(App)
