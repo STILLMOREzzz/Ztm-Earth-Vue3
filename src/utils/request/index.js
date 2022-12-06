@@ -3,7 +3,7 @@ import { showMessage } from './status';
 
 // 创建 axios 对象
 const instance = axios.create({
-  baseURL: 'localhost:9000', // 根路径
+  baseURL: '/', // 根路径
   timeout: 5000 // 网络延时
 })
 

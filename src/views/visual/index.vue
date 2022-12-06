@@ -13,13 +13,12 @@ export default defineComponent({
   setup() {
     initCesiumVisual()
     onUnmounted(() => {
-
     })
     return {}
   },
 })
 function initCesiumVisual() {
-  onMounted(() => {
+  onMounted( () => {
     // Initialize the Cesium Viewer in the HTML element with the "cesiumContainer" ID.
     const viewer = new Cesium.Viewer('cesiumContainer', {
       animation: false, //动画控件
@@ -47,7 +46,10 @@ function initCesiumVisual() {
     Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(80, 22, 130, 50)
 
   })
+
 }
+
+
 </script>
 <style scoped>
 #cesiumContainer {

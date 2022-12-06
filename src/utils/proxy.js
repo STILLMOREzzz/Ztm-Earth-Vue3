@@ -1,7 +1,6 @@
 import { API_BASE_URL, API_TARGET_URL, MOCK_API_BASE_URL, MOCK_API_TARGET_URL } from './constant';
 
 const init = {
-  // test
   [API_BASE_URL]: {
     target: API_TARGET_URL,
     changeOrigin: true,
