@@ -43,7 +43,8 @@ function initCesiumVisual() {
     //去除版权信息
     viewer._cesiumWidget._creditContainer.style.display = "none";
     viewer.scene.globe.depthTestAgainstTerrain = true; //解决地形遮挡entity问题
-
+    // 设置查看的默认矩形（当前设置在中国）
+    Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(80, 22, 130, 50)
 
   })
 }
