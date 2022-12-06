@@ -5,10 +5,14 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import proxy from './src/utils/proxy';
 import { VITE_PORT } from './src/utils/constant';
+import cesium from 'vite-plugin-cesium';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    cesium(),
+  ],
   https: false, // 是否开启https
   ssr: false, // 服务端渲染
   /**
