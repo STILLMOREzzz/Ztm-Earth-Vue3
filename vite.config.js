@@ -9,9 +9,21 @@ import { VITE_PORT } from './src/utils/constant';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
+  https: false, // 是否开启https
+  ssr: false, // 服务端渲染
+  /**
+   * 在生产中服务时的基本公共路径。
+   * @default '/'
+   */
+  base: './',
+  /**
+   * 与“根”相关的目录，构建输出将放在其中。如果目录存在，它将在构建之前被删除。
+   * @default 'dist'
+   */
+  outDir: 'dist',
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     }
   },
   css: {
@@ -31,6 +43,7 @@ export default defineConfig({
     open: false, // 类型： boolean | string在服务器启动时自动在浏览器中打开应用程序；
     cors: false, // 类型： boolean | CorsOptions 为开发服务器配置 CORS。默认启用并允许任何源
     host: '0.0.0.0', // IP配置，支持从IP启动
+    https: false,
     proxy,
   },
 })

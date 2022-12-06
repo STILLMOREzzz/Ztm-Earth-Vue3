@@ -36,3 +36,24 @@ instance.interceptors.response.use(function (response) {
 
 // 最终返回的对象
 export default instance
+
+/**
+ * use example
+ *  // get
+    request({
+      url: "/course/category/getSecondCategorys",
+    }).then((res) => {
+      console.log(res);
+    });
+   // post
+   request({
+      url: "/course/mostNew",
+      method: "post",
+      data: {
+        pageNum: 1,
+        pageSize: 5,
+      },
+    }).then((res) => {
+      console.log(res);
+    });
+ */
