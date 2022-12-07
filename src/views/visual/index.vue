@@ -3,24 +3,24 @@
 </template>
 
 <script>
-import { onMounted, onUnmounted, defineComponent } from 'vue'
-import * as Cesium from 'cesium'
+import { onMounted, onUnmounted, defineComponent } from "vue";
+import * as Cesium from "cesium";
 
-Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4NzNiMDhkOS0wMWVkLTQ1MDYtOTE5Zi1iNjVmNzU1YzdlYzEiLCJpZCI6MTIxODIsImlhdCI6MTYzNDgyMTQwNX0.KS4Fov-Kdyfr7lxby8WHSUoYipl2XK5zhf204iwQJNE'
+Cesium.Ion.defaultAccessToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiN2M3NDk0ZC0yNGE3LTRhY2YtOTczYi0xZDI3Y2QyNmM3YTgiLCJpZCI6MTA5MzksInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NTc3Mzc2MTR9.fn_I8XG7rubnJfiivYEOVwq3vPluZhvU37EPozFgAYI";
 
 export default defineComponent({
-  name: 'cesium',
+  name: "cesium",
   setup() {
-    initCesiumVisual()
-    onUnmounted(() => {
-    })
-    return {}
+    initCesiumVisual();
+    onUnmounted(() => {});
+    return {};
   },
-})
+});
+
 function initCesiumVisual() {
-  onMounted( () => {
-    // Initialize the Cesium Viewer in the HTML element with the "cesiumContainer" ID.
-    const viewer = new Cesium.Viewer('cesiumContainer', {
+  onMounted(() => {
+    const viewer = new Cesium.Viewer("cesiumContainer", {
       animation: false, //动画控件
       timeline: false, //时间线
       fullscreenButton: false, // 全屏按钮
@@ -38,18 +38,19 @@ function initCesiumVisual() {
       navigation: false,
       showRenderLoopErrors: false,
       terrainProvider: Cesium.createWorldTerrain(),
-    })
-    //去除版权信息
-    viewer._cesiumWidget._creditContainer.style.display = "none";
-    viewer.scene.globe.depthTestAgainstTerrain = true; //解决地形遮挡entity问题
+    });
+
+    viewer._cesiumWidget._creditContainer.style.display = "none"; //去除版权信息
+    viewer.scene.globe.depthTestAgainstTerrain = true; // 开启深度检测
     // 设置查看的默认矩形（当前设置在中国）
-    Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(80, 22, 130, 50)
-
-  })
-
+    Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(
+      80,
+      22,
+      130,
+      50
+    );
+  });
 }
-
-
 </script>
 <style scoped>
 #cesiumContainer {

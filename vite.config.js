@@ -1,17 +1,21 @@
-import { fileURLToPath, URL } from 'node:url';
+import { fileURLToPath, URL } from "node:url";
 
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import path from 'path';
-import proxy from './src/utils/proxy';
-import { VITE_PORT } from './src/utils/constant';
-import cesium from 'vite-plugin-cesium';
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import path from "path";
+import proxy from "./src/utils/proxy";
+import { VITE_PORT } from "./src/utils/constant";
+import cesium from "vite-plugin-cesium";
+import eslintPlugin from "vite-plugin-eslint";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     cesium(),
+    eslintPlugin({
+      include: ["src/**/*.js", "src/**/*.vue", "src/*.js", "src/*.vue"],
+    }),
   ],
   https: false, // 是否开启https
   ssr: false, // 服务端渲染
@@ -19,22 +23,24 @@ export default defineConfig({
    * 在生产中服务时的基本公共路径。
    * @default '/'
    */
-  base: './',
+  base: "./",
   /**
    * 与“根”相关的目录，构建输出将放在其中。如果目录存在，它将在构建之前被删除。
    * @default 'dist'
    */
-  outDir: 'dist',
+  outDir: "dist",
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    }
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
   },
   css: {
     preprocessorOptions: {
       less: {
         modifyVars: {
-          hack: `true; @import (reference) "${path.resolve("src/assets/styles/base.less")}";`,
+          hack: `true; @import (reference) "${path.resolve(
+            "src/assets/styles/base.less"
+          )}";`,
         },
         javascriptEnabled: true,
       },
@@ -46,8 +52,8 @@ export default defineConfig({
     port: VITE_PORT, // 类型： number 指定服务器端口;
     open: false, // 类型： boolean | string在服务器启动时自动在浏览器中打开应用程序；
     cors: false, // 类型： boolean | CorsOptions 为开发服务器配置 CORS。默认启用并允许任何源
-    host: '0.0.0.0', // IP配置，支持从IP启动
+    host: "0.0.0.0", // IP配置，支持从IP启动
     https: false,
     proxy,
   },
-})
+});

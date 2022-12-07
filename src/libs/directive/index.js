@@ -1,11 +1,11 @@
-import directObj from './directiveConf'
+import directObj from "./directiveConf";
 
-export function setupDirective(app){
-  app.directive('cust-drag-dialog', {
+export function setupDirective(app) {
+  app.directive("cust-drag-dialog", {
     mounted(el, bindings, vnode, preVnode) {
-      const domDragContainer = el.firstElementChild.firstElementChild
-      directObj.bind(domDragContainer)
-      directObj.update(domDragContainer, bindings)
-    }
-  })
+      const domDragContainer = el.firstElementChild.firstElementChild;
+      directObj.bind(domDragContainer);
+      directObj.update(domDragContainer, bindings);
+    },
+  });
 }

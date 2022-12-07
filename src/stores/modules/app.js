@@ -1,25 +1,24 @@
-import { defineStore } from 'pinia'
-import { store } from '/@/stores'
-
+import { defineStore } from "pinia";
+import { store } from "/@/stores";
 
 export const useAppStore = defineStore({
-  id: 'app',
+  id: "app",
   state: () => ({
     pageLoading: true,
   }),
   getters: {
     getPageLoading() {
-      return this.pageLoading
+      return this.pageLoading;
     },
   },
   actions: {
-    setPageLoading(loading){
-      this.pageLoading = loading
+    setPageLoading(loading) {
+      this.pageLoading = loading;
     },
   },
-})
+});
 
-// Need to be used outside the setup
+// 需要在setup外使用
 export function useAppStoreWithOut() {
-  return useAppStore(store)
+  return useAppStore(store);
 }
