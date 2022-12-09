@@ -1,9 +1,17 @@
+/**
+ * @Author: 赵天铭
+ * @Date: 2022-12-08
+ * @Description: vue配置
+ * @LastEditors: 赵天铭
+ * @LastEditTime: 2022-12-08 21:32
+ * @FilePath: ztm-earth-vue3/src/main.js
+ */
 import { createApp } from "vue";
 
 import App from "./App.vue";
 import router, { setupRouter } from "./router"; // 路由
 
-import { setupDirective } from "./libs/directive/index";
+import { setupDirective } from "./utils/directive/index";
 import { setupGlobalCom } from "./components/index";
 import { setupStore } from "./stores/index";
 

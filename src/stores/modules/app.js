@@ -1,3 +1,11 @@
+/**
+ * @Author: 赵天铭
+ * @Date: 2022-12-07
+ * @Description: pinia示例
+ * @LastEditors: 赵天铭
+ * @LastEditTime: 2022-12-07
+ * @FilePath: ztm-earth-vue3/src/stores/modules/app.js
+ */
 import { defineStore } from "pinia";
 import { store } from "/@/stores";
 

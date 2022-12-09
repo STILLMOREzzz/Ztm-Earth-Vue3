@@ -1,3 +1,11 @@
+/**
+ * @Author: 赵天铭
+ * @Date: 2022-12-06
+ * @Description: 请求错误时的错误信息配置
+ * @LastEditors: 赵天铭
+ * @LastEditTime: 2022-12-06
+ * @FilePath: ztm-earth-vue3/src/utils/request/status.js
+ */
 export const showMessage = (status) => {
   let message = "";
   switch (status) {

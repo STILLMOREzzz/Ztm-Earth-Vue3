@@ -1,3 +1,11 @@
+/**
+ * @Author: 赵天铭
+ * @Date: 2022-12-06
+ * @Description: 二次封装axios
+ * @LastEditors: 赵天铭
+ * @LastEditTime: 2022-12-06
+ * @FilePath: ztm-earth-vue3/src/utils/request/index.js
+ */
 import axios from "axios";
 import { showMessage } from "./status";
 

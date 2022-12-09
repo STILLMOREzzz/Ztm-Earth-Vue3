@@ -1,3 +1,12 @@
+/**
+ * @Author: 赵天铭
+ * @Date: 2022-12-06
+ * @Description: router配置
+ * @LastEditors: 赵天铭
+ * @LastEditTime: 2022-12-06
+ * @FilePath: ztm-earth-vue3/src/router/index.js
+ */
+
 import { createRouter, createWebHashHistory } from "vue-router";
 import Visual from "@/views/visual/index.vue";
 

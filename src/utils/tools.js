@@ -1,3 +1,11 @@
+/**
+ * @Author: 赵天铭
+ * @Date: 2022-12-08
+ * @Description: 常用的工具函数
+ * @LastEditors: 赵天铭
+ * @LastEditTime: 2022-12-08 21:24
+ * @FilePath: ztm-earth-vue3/src/utils/tools.js
+ */
 // 深拷贝对象
 export const copyobj = (obj1, obj2) => {
   let obj = obj2 || {};

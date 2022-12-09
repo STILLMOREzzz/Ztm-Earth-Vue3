@@ -1,3 +1,11 @@
+/**
+ * @Author: 赵天铭
+ * @Date: 2022-12-06
+ * @Description: components配置
+ * @LastEditors: 赵天铭
+ * @LastEditTime: 2022-12-06
+ * @FilePath: ztm-earth-vue3/src/components/index.js
+ */
 export function setupGlobalCom(app) {
   // Dynamic injection modules
   const modulesGlob = import.meta.globEager("./*/index.*");
