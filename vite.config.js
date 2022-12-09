@@ -7,6 +7,9 @@ import proxy from "./src/utils/proxy";
 import { VITE_PORT } from "./src/utils/constant";
 import cesium from "vite-plugin-cesium";
 import eslintPlugin from "vite-plugin-eslint";
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,6 +18,12 @@ export default defineConfig({
     cesium(),
     eslintPlugin({
       include: ["src/**/*.js", "src/**/*.vue", "src/*.js", "src/*.vue"],
+    }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
     }),
   ],
   https: false, // 是否开启https
