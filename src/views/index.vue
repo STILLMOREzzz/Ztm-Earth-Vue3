@@ -3,23 +3,28 @@
 </template>
 
 <script>
-import { onMounted, onUnmounted, defineComponent } from "vue";
-import * as Cesium from "cesium";
-
-Cesium.Ion.defaultAccessToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiN2M3NDk0ZC0yNGE3LTRhY2YtOTczYi0xZDI3Y2QyNmM3YTgiLCJpZCI6MTA5MzksInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NTc3Mzc2MTR9.fn_I8XG7rubnJfiivYEOVwq3vPluZhvU37EPozFgAYI";
+/**
+ * @Author: 赵天铭
+ * @Date: 2022-12-10
+ * @Description: 初始化地球
+ * @LastEditors: 赵天铭
+ * @LastEditTime: 2022-12-10 10:31
+ * @FilePath: ztm-earth-vue3/src/views/index.vue
+ */
+import { onMounted, defineComponent } from "vue";
+import useCesium from "../hooks/useCesium";
 
 export default defineComponent({
   name: "Cesium",
   setup() {
     initCesiumVisual();
-    onUnmounted(() => {});
     return {};
   },
 });
 
 function initCesiumVisual() {
   onMounted(() => {
+    const Cesium = useCesium();
     const viewer = new Cesium.Viewer("cesiumContainer", {
       animation: false, //动画控件
       timeline: false, //时间线
@@ -40,8 +45,10 @@ function initCesiumVisual() {
       terrainProvider: Cesium.createWorldTerrain(),
     });
 
+    window.Viewer = viewer; // 全局挂载方便调试
     viewer._cesiumWidget._creditContainer.style.display = "none"; //去除版权信息
     viewer.scene.globe.depthTestAgainstTerrain = true; // 开启深度检测
+
     // 设置查看的默认矩形（当前设置在中国）
     Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(
       80,
