@@ -15,6 +15,8 @@ import { setupDirective } from "@/utils/directive";
 import { setupGlobalCom } from "@/components";
 import { setupStore } from "@/stores";
 import ElementPlus from "element-plus";
+
+// todo: 将element-icon按需引入
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 import "@/assets/styles/index.less";

@@ -32,6 +32,15 @@
 </template>
 
 <script setup>
+/**
+ * @Author: 赵天铭
+ * @Date: 2022-12-10
+ * @Description: 右侧的功能栏
+ * @LastEditors: 赵天铭
+ * @LastEditTime: 2022-12-10 16:35
+ * @FilePath: ztm-earth-vue3/src/components/PanelMenu/index.vue
+ */
+
 import { ref, reactive, watchEffect, computed } from "vue";
 
 import useMeasureLineSpace from "@/hooks/measure/useMeasureLineSpace";

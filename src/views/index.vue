@@ -9,11 +9,16 @@
  * @Date: 2022-12-10
  * @Description: 初始化地球
  * @LastEditors: 赵天铭
- * @LastEditTime: 2022-12-10 15:59
+ * @LastEditTime: 2022-12-10 18:45
  * @FilePath: ztm-earth-vue3/src/views/index.vue
  */
 import { onMounted, defineComponent, ref } from "vue";
 import useCesium from "@/hooks/useCesium";
+import { useAppStoreWithOut } from "@/stores/modules/app";
+import nProgress from "nprogress";
+
+const Cesium = useCesium();
+const appStores = useAppStoreWithOut();
 
 export default defineComponent({
   name: "Cesium",
@@ -25,35 +30,38 @@ export default defineComponent({
 
 function initCesiumVisual() {
   onMounted(() => {
+    nProgress.start();
 
-    const Cesium = useCesium();
     Cesium.Ion.defaultAccessToken =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiN2M3NDk0ZC0yNGE3LTRhY2YtOTczYi0xZDI3Y2QyNmM3YTgiLCJpZCI6MTA5MzksInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NTc3Mzc2MTR9.fn_I8XG7rubnJfiivYEOVwq3vPluZhvU37EPozFgAYI";
 
     const viewer = new Cesium.Viewer("cesiumContainer", {
-      animation: false, //动画控件
-      timeline: false, //时间线
-      fullscreenButton: false, // 全屏按钮
-      geocoder: false, //地名查找（依赖google服务）
-      homeButton: false, //重置到初始焦点与缩放
-      selectionIndicator: false, //
       shadow: true,
       sceneMode: Cesium.SceneMode.SCENE3D,
-      infoBox: false, //消息框
-      sceneModePicker: false, //场景模式选择
-      navigationHelpButton: false, //导航帮助按钮
       projectionPicker: false, //投影方式选择（3D、2D、Columbus）
-      baseLayerPicker: false,
-      shouldAnimate: true,
       navigation: false,
-      showRenderLoopErrors: false,
       terrainProvider: Cesium.createWorldTerrain(),
+      infoBox: false, // 显示 信息框
+      fullscreenButton: false, // 是否显示全屏按钮
+      homeButton: true, // 是否显示首页按钮
+      geocoder: false, // 默认不显示搜索栏地址
+      sceneModePicker: true, // 是否显示视角切换按钮
+      requestRenderMode: true, //启用请求渲染模式
+      scene3DOnly: false, //每个几何实例将只能以3D渲染以节省GPU内存
+      selectionIndicator: false, // 去掉框选
+      showRenderLoopErrors: false,
+      baseLayerPicker: false, // 基础影响图层选择器
+      navigationHelpButton: false, // 导航帮助按钮
+      animation: false, // 动画控件
+      timeline: false, // 时间控件
+      shadows: false, // 显示阴影
+      shouldAnimate: true, // 模型动画效果 大气
     });
 
     window.Viewer = viewer; // 全局挂载方便调试
     viewer._cesiumWidget._creditContainer.style.display = "none"; //去除版权信息
     viewer.scene.globe.depthTestAgainstTerrain = true; // 开启深度检测
-    viewer.scene.debugShowFramesPerSecond = false; // 显示 fps
+    viewer.scene.debugShowFramesPerSecond = true; // 显示 fps
 
     // 设置查看的默认矩形（当前设置在中国）
     Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(
@@ -62,6 +70,18 @@ function initCesiumVisual() {
       130,
       50
     );
+
+    // 页面加载时的缓冲
+    const helper = new Cesium.EventHelper();
+    helper.add(viewer.scene.globe.tileLoadProgressEvent, (e) => {
+      if (e > 20 || e === 0) {
+        // console.log('矢量切片加载完成时的回调')
+        nProgress.done();
+        appStores.setPageLoading(false);
+      } else {
+        // console.log('地图资源加载中')
+      }
+    });
   });
 }
 </script>
