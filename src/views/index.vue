@@ -1,5 +1,6 @@
 <template>
   <div id="cesiumContainer"></div>
+  <panel-menu />
 </template>
 
 <script>
@@ -8,11 +9,11 @@
  * @Date: 2022-12-10
  * @Description: 初始化地球
  * @LastEditors: 赵天铭
- * @LastEditTime: 2022-12-10 10:31
+ * @LastEditTime: 2022-12-10 15:59
  * @FilePath: ztm-earth-vue3/src/views/index.vue
  */
-import { onMounted, defineComponent } from "vue";
-import useCesium from "../hooks/useCesium";
+import { onMounted, defineComponent, ref } from "vue";
+import useCesium from "@/hooks/useCesium";
 
 export default defineComponent({
   name: "Cesium",
@@ -24,7 +25,11 @@ export default defineComponent({
 
 function initCesiumVisual() {
   onMounted(() => {
+
     const Cesium = useCesium();
+    Cesium.Ion.defaultAccessToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiN2M3NDk0ZC0yNGE3LTRhY2YtOTczYi0xZDI3Y2QyNmM3YTgiLCJpZCI6MTA5MzksInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NTc3Mzc2MTR9.fn_I8XG7rubnJfiivYEOVwq3vPluZhvU37EPozFgAYI";
+
     const viewer = new Cesium.Viewer("cesiumContainer", {
       animation: false, //动画控件
       timeline: false, //时间线
@@ -48,6 +53,7 @@ function initCesiumVisual() {
     window.Viewer = viewer; // 全局挂载方便调试
     viewer._cesiumWidget._creditContainer.style.display = "none"; //去除版权信息
     viewer.scene.globe.depthTestAgainstTerrain = true; // 开启深度检测
+    viewer.scene.debugShowFramesPerSecond = false; // 显示 fps
 
     // 设置查看的默认矩形（当前设置在中国）
     Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(

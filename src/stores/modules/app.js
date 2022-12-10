@@ -7,7 +7,7 @@
  * @FilePath: ztm-earth-vue3/src/stores/modules/app.js
  */
 import { defineStore } from "pinia";
-import { store } from "/@/stores";
+import { store } from "@/stores";
 
 export const useAppStore = defineStore({
   id: "app",

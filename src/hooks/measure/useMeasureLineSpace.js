@@ -7,7 +7,7 @@
  * @FilePath: ztm-earth-vue3/src/hooks/measure/useMeasureLineSpace.js
  */
 
-import useCesium from "/@/hooks/useCesium";
+import useCesium from "@/hooks/useCesium";
 const Cesium = useCesium();
 
 /**

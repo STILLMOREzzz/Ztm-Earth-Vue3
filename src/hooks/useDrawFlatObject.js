@@ -8,7 +8,7 @@
  */
 
 import { unref } from "vue";
-import useCesium from "/@/hooks/useCesium";
+import useCesium from "@/hooks/useCesium";
 const Cesium = useCesium();
 
 /**

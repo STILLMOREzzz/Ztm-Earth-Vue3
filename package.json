@@ -12,6 +12,7 @@
     "axios": "^1.2.0",
     "cesium": "^1.100.0",
     "element-plus": "^2.2.26",
+    "heatmap.js": "^2.0.5",
     "pinia": "^2.0.26",
     "qs": "^6.11.0",
     "vue": "^3.2.45",
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
+    "@element-plus/icons-vue": "^2.0.10",
     "@rushstack/eslint-patch": "^1.1.4",
     "@types/node": "^18.11.11",
     "@vitejs/plugin-vue": "^3.2.0",
