@@ -3,13 +3,14 @@
  * @Date: 2022-12-11
  * @Description: 初始化地球
  * @LastEditors: 赵天铭
- * @LastEditTime: 2022-12-11 14:12
+ * @LastEditTime: 2022-12-11 18:55
  * @FilePath: ztm-earth-vue3/src/hooks/useInitCesiumMap.js
  */
 
 import useCesium from "@/hooks/useCesium";
 import { useAppStoreWithOut } from "@/stores/modules/app";
 import nProgress from "nprogress";
+import { startLoading, endLoading } from "@/utils/loading";
 
 const Cesium = useCesium();
 const appStores = useAppStoreWithOut();
@@ -19,7 +20,7 @@ Cesium.Ion.defaultAccessToken =
 
 export default function useInitCesiumMap(viewerName = "cesiumContainer") {
   nProgress.start();
-
+  startLoading();
   const viewer = new Cesium.Viewer("cesiumContainer", {
     shadow: true,
     sceneMode: Cesium.SceneMode.SCENE3D,
@@ -49,8 +50,6 @@ export default function useInitCesiumMap(viewerName = "cesiumContainer") {
   viewer.scene.globe.depthTestAgainstTerrain = true; // 开启深度检测
   viewer.scene.debugShowFramesPerSecond = true; // 显示 fps
 
-  viewer.imageryLayers.addImageryProvider(new Cesium.IonImageryProvider({ assetId: 3 }));
-
   // 设置查看的默认矩形（当前设置在中国）
   Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(80, 22, 130, 50);
 
@@ -60,6 +59,7 @@ export default function useInitCesiumMap(viewerName = "cesiumContainer") {
     if (e > 20 || e === 0) {
       // console.log('矢量切片加载完成时的回调')
       nProgress.done();
+      endLoading();
       appStores.setPageLoading(false);
     } else {
       // console.log('地图资源加载中')
