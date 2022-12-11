@@ -12,18 +12,18 @@ import { store } from "@/stores";
 export const useAppStore = defineStore({
   id: "app",
   state: () => ({
-    pageLoading: true,
+    pageLoading: true
   }),
   getters: {
     getPageLoading() {
       return this.pageLoading;
-    },
+    }
   },
   actions: {
     setPageLoading(loading) {
       this.pageLoading = loading;
-    },
-  },
+    }
+  }
 });
 
 // 可以在setup外使用

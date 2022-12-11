@@ -18,7 +18,7 @@ const routerHistory = createWebHashHistory(import.meta.env.BASE_URL);
 export const constantRoutes = [
   {
     path: "/",
-    redirect: "/visual",
+    redirect: "/visual"
   },
   {
     path: "/visual",
@@ -26,15 +26,15 @@ export const constantRoutes = [
     children: [
       {
         path: "/point",
-        component: () => import("@/components/"),
-      },
-    ],
-  },
+        component: () => import("@/components/")
+      }
+    ]
+  }
 ];
 
 const router = createRouter({
   history: routerHistory,
-  routes: constantRoutes,
+  routes: constantRoutes
 });
 
 // 删除/重置路由

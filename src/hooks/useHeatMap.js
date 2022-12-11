@@ -16,7 +16,7 @@ export default function useHeatMap() {
       const point = {
         x: Math.floor(Math.random() * width),
         y: Math.floor(Math.random() * height),
-        value: val,
+        value: val
       };
       points.push(point);
     }
@@ -27,10 +27,7 @@ export default function useHeatMap() {
   const createHeatMap = (max, data) => {
     // 获取元素
     const heatDoc = document.createElement("div");
-    heatDoc.setAttribute(
-      "style",
-      "width: 100px; height: 100px; margin: 0px; display: none;"
-    );
+    heatDoc.setAttribute("style", "width: 100px; height: 100px; margin: 0px; display: none;");
     document.body.appendChild(heatDoc);
     // 创建热力图对象
     const heatmap = h337.create({
@@ -43,13 +40,13 @@ export default function useHeatMap() {
         0.8: "orange",
         0.7: "yellow",
         0.5: "blue",
-        0.3: "green",
-      },
+        0.3: "green"
+      }
     });
     // 添加数据
     heatmap.setData({
       max: max,
-      data: data,
+      data: data
     });
     return heatmap;
   };
@@ -67,8 +64,8 @@ export default function useHeatMap() {
           coordinate[3]
         ),
         material: heatMap._renderer.canvas,
-        transparent: true,
-      },
+        transparent: true
+      }
     });
     viewer.zoomTo(viewer.entities);
   };
@@ -76,6 +73,6 @@ export default function useHeatMap() {
   return {
     createRectangle,
     getRandomData,
-    createHeatMap,
+    createHeatMap
   };
 }

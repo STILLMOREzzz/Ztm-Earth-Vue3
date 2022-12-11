@@ -17,9 +17,7 @@ export default function useMeasureArea(viewer) {
     Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK
   );
   // 鼠标事件
-  _this.handler = new Cesium.ScreenSpaceEventHandler(
-    viewer.scene._imageryLayerCollection
-  );
+  _this.handler = new Cesium.ScreenSpaceEventHandler(viewer.scene._imageryLayerCollection);
   const positions = [];
   const tempPoints = [];
   let polygon = null;
@@ -49,16 +47,14 @@ export default function useMeasureArea(viewer) {
     }
     positions.push(cartesian);
     //在三维场景中添加点
-    const cartographic = Cesium.Cartographic.fromCartesian(
-      positions[positions.length - 1]
-    );
+    const cartographic = Cesium.Cartographic.fromCartesian(positions[positions.length - 1]);
     const longitudeString = Cesium.Math.toDegrees(cartographic.longitude);
     const latitudeString = Cesium.Math.toDegrees(cartographic.latitude);
     const heightString = cartographic.height;
     tempPoints.push({
       lon: longitudeString,
       lat: latitudeString,
-      hei: heightString,
+      hei: heightString
     });
     floatingPoint = viewer.entities.add({
       name: "多边形面积",
@@ -68,8 +64,8 @@ export default function useMeasureArea(viewer) {
         color: Cesium.Color.RED,
         outlineColor: Cesium.Color.WHITE,
         outlineWidth: 2,
-        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-      },
+        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
+      }
     });
     areaArray.push(floatingPoint);
     _this.areapointArray = areaArray;
@@ -88,7 +84,7 @@ export default function useMeasureArea(viewer) {
         color: Cesium.Color.RED,
         outlineColor: Cesium.Color.WHITE,
         outlineWidth: 2,
-        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
       },
       label: {
         text: textArea,
@@ -98,8 +94,8 @@ export default function useMeasureArea(viewer) {
         outlineWidth: 2,
         verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
         pixelOffset: new Cesium.Cartesian2(20, -40),
-        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-      },
+        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
+      }
     });
 
     areaArray.push(areaText);
@@ -147,8 +143,7 @@ export default function useMeasureArea(viewer) {
     const lon2 = to.lon * radiansPerDegree;
     let angle = -Math.atan2(
       Math.sin(lon1 - lon2) * Math.cos(lat2),
-      Math.cos(lat1) * Math.sin(lat2) -
-        Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2)
+      Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2)
     );
     if (angle < 0) {
       angle += Math.PI * 2.0;
@@ -165,8 +160,8 @@ export default function useMeasureArea(viewer) {
         polygon: {
           hierarchy: [],
           material: Cesium.Color.GREEN.withAlpha(0.5),
-          heightReference: 20000,
-        },
+          heightReference: 20000
+        }
       };
 
       _this.hierarchy = { positions };
@@ -175,10 +170,7 @@ export default function useMeasureArea(viewer) {
         return _this.hierarchy;
       };
       //实时更新polygon.hierarchy
-      _this.options.polygon.hierarchy = new Cesium.CallbackProperty(
-        _update,
-        false
-      );
+      _this.options.polygon.hierarchy = new Cesium.CallbackProperty(_update, false);
       viewer.entities.add(_this.options);
     }
 
@@ -194,8 +186,7 @@ export default function useMeasureArea(viewer) {
     let s = geodesic.surfaceDistance;
     //返回两点之间的距离
     s = Math.sqrt(
-      Math.pow(s, 2) +
-        Math.pow(point2cartographic.height - point1cartographic.height, 2)
+      Math.pow(s, 2) + Math.pow(point2cartographic.height - point1cartographic.height, 2)
     );
     return s;
   }

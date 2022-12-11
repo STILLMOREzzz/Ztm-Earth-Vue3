@@ -39,8 +39,8 @@ export default function useDraw(viewer, type) {
         outlineColor: Cesium.Color.YELLOW,
         outlineWidth: 3,
         disableDepthTestDistance: Number.POSITIVE_INFINITY,
-        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-      },
+        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
+      }
     });
     return pointer;
   };
@@ -52,8 +52,8 @@ export default function useDraw(viewer, type) {
       polyline: {
         positions: positions,
         clampToGround: true,
-        width: 5,
-      },
+        width: 5
+      }
     });
     return polyline;
   };
@@ -69,10 +69,8 @@ export default function useDraw(viewer, type) {
       // },
       polygon: {
         hierarchy: positions,
-        material: new Cesium.ColorMaterialProperty(
-          Cesium.Color.WHITE.withAlpha(0.7)
-        ),
-      },
+        material: new Cesium.ColorMaterialProperty(Cesium.Color.WHITE.withAlpha(0.7))
+      }
     });
     return polygon;
   };

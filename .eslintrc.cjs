@@ -6,7 +6,7 @@ module.exports = defineConfig({
     // 环境
     browser: true, // 浏览器环境中的全局变量。
     node: true, // Node.js 全局变量和 Node.js 作用域。
-    es6: true, // 启用除了 modules 以外的所有 ECMAScript 6 特性（该选项会自动设置 ecmaVersion 解析器选项为 6）。
+    es6: true // 启用除了 modules 以外的所有 ECMAScript 6 特性（该选项会自动设置 ecmaVersion 解析器选项为 6）。
   },
   parser: "vue-eslint-parser", // 解析器
   parserOptions: {
@@ -17,15 +17,15 @@ module.exports = defineConfig({
     jsxPragma: "React", // 支持 ReactJSX 语法
     ecmaFeatures: {
       // 表示你想使用的额外的语言特性
-      jsx: true, // 启用 JSX
+      jsx: true // 启用 JSX
     },
-    requireConfigFile: false,
+    requireConfigFile: false
   },
   extends: [
     "plugin:vue/vue3-recommended",
     // 'plugin:@typescript-eslint/recommended',
     "prettier",
-    "plugin:prettier/recommended", // 一定要放在最后。因为 extends 中后引入的规则会覆盖前面的规则。
+    "plugin:prettier/recommended" // 一定要放在最后。因为 extends 中后引入的规则会覆盖前面的规则。
   ],
   rules: {
     // @typescript-eslint
@@ -60,8 +60,8 @@ module.exports = defineConfig({
     "vue/multi-word-component-names": "off", // 是否开启组件命名规则校验（强制多个单词以驼峰或'-'链接的命名规则）
     // ESLint
     "no-use-before-define": "off", // 禁止在变量定义之前使用它们
-    "space-before-function-paren": "off", // 强制在 function的左括号之前使用一致的空格
-  },
+    "space-before-function-paren": "off" // 强制在 function的左括号之前使用一致的空格
+  }
   //  overrides: [ // 若要开启组件命名规则校验，建议选这种方式
   //    {
   //      files: ['src/views/index.vue', 'src/views/**/index.vue'], // 匹配 views 和任意多级路径中的 index.vue

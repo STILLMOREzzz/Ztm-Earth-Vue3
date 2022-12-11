@@ -26,6 +26,6 @@ export default function useMousePosition() {
 
   return {
     x,
-    y,
+    y
   };
 }

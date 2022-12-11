@@ -14,6 +14,6 @@ export function setupDirective(app) {
       const domDragContainer = el.firstElementChild.firstElementChild;
       directObj.bind(domDragContainer);
       directObj.update(domDragContainer, bindings);
-    },
+    }
   });
 }

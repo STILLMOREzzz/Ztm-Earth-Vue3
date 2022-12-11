@@ -18,9 +18,7 @@ export default function useRemoveTools() {
    * @param arrayEntities 删除实体
    */
   const removeEntities = (viewer, arrayEntities) => {
-    let handler = new Cesium.ScreenSpaceEventHandler(
-      viewer.scene._imageryLayerCollection
-    );
+    let handler = new Cesium.ScreenSpaceEventHandler(viewer.scene._imageryLayerCollection);
     if (handler) {
       handler.destroy();
       handler = null;
@@ -58,6 +56,6 @@ export default function useRemoveTools() {
   return {
     removeEntities,
     removePrimitives,
-    removeAllDraw,
+    removeAllDraw
   };
 }

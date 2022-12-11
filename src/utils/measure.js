@@ -16,7 +16,7 @@ function getDisAndLabelPos(positions, interval, earth) {
     distance: 0,
     longitude: (positions[0][0] * 180) / Math.PI,
     latitude: (positions[0][1] * 180) / Math.PI,
-    height: positions[0][2],
+    height: positions[0][2]
   });
 
   var disAndLabelPos = [];
@@ -42,11 +42,7 @@ function getDisAndLabelPos(positions, interval, earth) {
   for (var i = 1; i < positions.length; i++) {
     var p1 = positions[i - 1];
     var p2 = positions[i];
-    var center = [
-      (p1[0] + p2[0]) / 2,
-      (p1[1] + p2[1]) / 2,
-      (p1[2] + p2[2]) / 2,
-    ];
+    var center = [(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2, (p1[2] + p2[2]) / 2];
 
     var c1 = Cesium.Cartesian3.fromRadians(p1[0], p1[1], p1[2]);
     var c2 = Cesium.Cartesian3.fromRadians(p2[0], p2[1], p2[2]);
@@ -70,7 +66,7 @@ function getDisAndLabelPos(positions, interval, earth) {
           distance: Math.round((total + setiondistance) * 100) / 100,
           longitude: (p[0] * 180) / Math.PI,
           latitude: (p[1] * 180) / Math.PI,
-          height: p[2],
+          height: p[2]
         });
 
         distance -= interval;
@@ -82,20 +78,20 @@ function getDisAndLabelPos(positions, interval, earth) {
         distance: Math.round(total * 100) / 100,
         longitude: (p2[0] * 180) / Math.PI,
         latitude: (p2[1] * 180) / Math.PI,
-        height: p2[2],
+        height: p2[2]
       });
     }
     total += distance;
 
     disAndLabelPos.push({
       dis: Math.round(distance * 100) / 100 + "米",
-      pos: center,
+      pos: center
     });
   }
 
   disAndLabelPos.push({
     dis: "总长：" + Math.round(total * 100) / 100 + "米",
-    pos: positions[0],
+    pos: positions[0]
   });
 
   var result = {};
@@ -130,10 +126,7 @@ function getPickRay(p1, p2, earth) {
     const disScene = Cesium.Cartesian3.distance(c1, resultScene.position);
     const disGlobe = Cesium.Cartesian3.distance(c1, resultGlobe);
     result = disScene < disGlobe ? resultScene.position : resultGlobe;
-  } else if (
-    Cesium.defined(resultScene) &&
-    Cesium.defined(resultScene.position)
-  ) {
+  } else if (Cesium.defined(resultScene) && Cesium.defined(resultScene.position)) {
     result = resultScene.position;
   } else if (Cesium.defined(resultGlobe)) {
     result = resultGlobe;

@@ -4,7 +4,7 @@ module.exports = {
   useTabs: false, // 使用制表符而不是空格缩进行。
   semi: true, // true（默认）: 在每条语句的末尾添加一个分号。false：仅在可能导致 ASI 失败的行的开头添加分号。
   vueIndentScriptAndStyle: true, // Vue 文件脚本和样式标签缩进
-  singleQuote: true, // 使用单引号而不是双引号
+  singleQuote: false, // 使用单引号而不是双引号
   quoteProps: "as-needed", // 引用对象中的属性时，仅在需要时在对象属性周围添加引号。
   bracketSpacing: true, // 在对象文字中的括号之间打印空格。
   trailingComma: "none", // "none":没有尾随逗号。"es5": 在 ES5 中有效的尾随逗号（对象、数组等），TypeScript 中的类型参数中没有尾随逗号。"all"- 尽可能使用尾随逗号。
@@ -16,5 +16,5 @@ module.exports = {
   proseWrap: "never", // 如果散文超过打印宽度，则换行
   htmlWhitespaceSensitivity: "strict", // 所有标签周围的空格（或缺少空格）被认为是重要的。
   endOfLine: "lf", // 确保在文本文件中仅使用 ( \n)换行，常见于 Linux 和 macOS 以及 git repos 内部。
-  rangeStart: 0, // 格式化文件时，回到包含所选语句的第一行的开头。
+  rangeStart: 0 // 格式化文件时，回到包含所选语句的第一行的开头。
 };

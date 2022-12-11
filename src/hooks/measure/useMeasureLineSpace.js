@@ -21,9 +21,7 @@ export default function useMeasureLineSpace(viewer) {
     Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK
   );
 
-  _this.handler = new Cesium.ScreenSpaceEventHandler(
-    viewer.scene._imageryLayerCollection
-  );
+  _this.handler = new Cesium.ScreenSpaceEventHandler(viewer.scene._imageryLayerCollection);
   const positions = [];
   let poly = null;
   let distance = 0;
@@ -62,7 +60,7 @@ export default function useMeasureLineSpace(viewer) {
         pixelSize: 4,
         color: Cesium.Color.RED,
         outlineColor: Cesium.Color.WHITE,
-        outlineWidth: 2,
+        outlineWidth: 2
       },
       label: {
         text: textDistance,
@@ -71,8 +69,8 @@ export default function useMeasureLineSpace(viewer) {
         style: Cesium.LabelStyle.FILL_AND_OUTLINE,
         outlineWidth: 2,
         verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-        pixelOffset: new Cesium.Cartesian2(20, -20),
-      },
+        pixelOffset: new Cesium.Cartesian2(20, -20)
+      }
     });
 
     floatingPointArray.push(_this.floatingPoint);
@@ -95,8 +93,8 @@ export default function useMeasureLineSpace(viewer) {
           positions: [],
           material: Cesium.Color.CHARTREUSE,
           width: 2,
-          clampToGround: true,
-        },
+          clampToGround: true
+        }
       };
       _this.positions = positions;
       // 实时更新线的位置
@@ -104,10 +102,7 @@ export default function useMeasureLineSpace(viewer) {
         return _this.positions;
       };
       // 实时更新 polyline.positions
-      _this.options.polyline.positions = new Cesium.CallbackProperty(
-        _update,
-        false
-      );
+      _this.options.polyline.positions = new Cesium.CallbackProperty(_update, false);
       viewer.entities.add(_this.options);
     }
 
@@ -118,20 +113,15 @@ export default function useMeasureLineSpace(viewer) {
   function getSpaceDistance(positions) {
     let distance = 0;
     for (let i = 0; i < positions.length - 1; i++) {
-      const point1cartographic = Cesium.Cartographic.fromCartesian(
-        positions[i]
-      );
-      const point2cartographic = Cesium.Cartographic.fromCartesian(
-        positions[i + 1]
-      );
+      const point1cartographic = Cesium.Cartographic.fromCartesian(positions[i]);
+      const point2cartographic = Cesium.Cartographic.fromCartesian(positions[i + 1]);
       /**根据经纬度计算出距离**/
       const geodesic = new Cesium.EllipsoidGeodesic();
       geodesic.setEndPoints(point1cartographic, point2cartographic);
       let s = geodesic.surfaceDistance;
       //返回两点之间的距离
       s = Math.sqrt(
-        Math.pow(s, 2) +
-          Math.pow(point2cartographic.height - point1cartographic.height, 2)
+        Math.pow(s, 2) + Math.pow(point2cartographic.height - point1cartographic.height, 2)
       );
       distance = distance + s;
     }

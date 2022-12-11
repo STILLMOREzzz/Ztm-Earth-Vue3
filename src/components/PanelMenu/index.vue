@@ -32,229 +32,226 @@
 </template>
 
 <script setup>
-/**
- * @Author: 赵天铭
- * @Date: 2022-12-10
- * @Description: 右侧的功能栏
- * @LastEditors: 赵天铭
- * @LastEditTime: 2022-12-10 16:35
- * @FilePath: ztm-earth-vue3/src/components/PanelMenu/index.vue
- */
+  /**
+   * @Author: 赵天铭
+   * @Date: 2022-12-10
+   * @Description: 右侧的功能栏
+   * @LastEditors: 赵天铭
+   * @LastEditTime: 2022-12-10 16:35
+   * @FilePath: ztm-earth-vue3/src/components/PanelMenu/index.vue
+   */
 
-import { ref, reactive, watchEffect, computed } from "vue";
+  import { ref, reactive, watchEffect, computed } from "vue";
 
-import useMeasureLineSpace from "@/hooks/measure/useMeasureLineSpace";
-import useMeasureArea from "@/hooks/measure/useMeasureArea";
-import useDraw from "@/hooks/useDrawFlatObject";
-import useRemoveTools from "@/hooks/useRemoveTools";
-import useHeatMap from "@/hooks/useHeatMap";
+  import useMeasureLineSpace from "@/hooks/measure/useMeasureLineSpace";
+  import useMeasureArea from "@/hooks/measure/useMeasureArea";
+  import useDraw from "@/hooks/useDrawFlatObject";
+  import useRemoveTools from "@/hooks/useRemoveTools";
+  import useHeatMap from "@/hooks/useHeatMap";
 
-const operates = reactive([
-  {
-    label: "量测",
-    list: [
-      {
-        label: "线距",
-        value: "line",
-      },
-      {
-        label: "面积",
-        value: "area",
-      },
-    ],
-  },
-  {
-    label: "绘制",
-    list: [
-      {
-        label: "点",
-        value: "point",
-      },
-      {
-        label: "线",
-        value: "polyline",
-      },
-      {
-        label: "面",
-        value: "polygon",
-      },
-      {
-        label: "清除",
-        value: "clear",
-      },
-    ],
-  },
-  {
-    label: "图层",
-    list: [
-      {
-        label: "热力图",
-        value: "heatmap",
-      },
-      {
-        label: "清空热力图",
-        value: "clearHeatmap",
-      },
-    ],
-  },
-]);
+  const operates = reactive([
+    {
+      label: "量测",
+      list: [
+        {
+          label: "线距",
+          value: "line"
+        },
+        {
+          label: "面积",
+          value: "area"
+        }
+      ]
+    },
+    {
+      label: "绘制",
+      list: [
+        {
+          label: "点",
+          value: "point"
+        },
+        {
+          label: "线",
+          value: "polyline"
+        },
+        {
+          label: "面",
+          value: "polygon"
+        },
+        {
+          label: "清除",
+          value: "clear"
+        }
+      ]
+    }
+    // {
+    //   label: "图层",
+    //   list: [
+    //     {
+    //       label: "热力图",
+    //       value: "heatmap",
+    //     },
+    //     {
+    //       label: "清空热力图",
+    //       value: "clearHeatmap",
+    //     },
+    //   ],
+    // },
+  ]);
 
-const emits = defineEmits(["update:visible", "on-click"]);
-const props = defineProps({
-  title: {
-    type: String,
-    default: "菜单操作",
-  },
-  width: {
-    type: String,
-    default: "30%",
-  },
-  visible: {
-    type: Boolean,
-    default: false,
-  },
-});
+  const emits = defineEmits(["update:visible", "on-click"]);
+  const props = defineProps({
+    title: {
+      type: String,
+      default: "菜单操作"
+    },
+    width: {
+      type: String,
+      default: "30%"
+    },
+    visible: {
+      type: Boolean,
+      default: false
+    }
+  });
 
-const { removeAllDraw } = useRemoveTools();
-const { createRectangle, getRandomData, createHeatMap } = useHeatMap();
+  const { removeAllDraw } = useRemoveTools();
+  const { createRectangle, getRandomData, createHeatMap } = useHeatMap();
 
-const dialogVisible = ref(false);
-const currentValue = ref("");
-const heatMap = ref(null);
+  const dialogVisible = ref(false);
+  const currentValue = ref("");
+  const heatMap = ref(null);
 
-watchEffect(() => {
-  dialogVisible.value = props.visible;
-});
+  watchEffect(() => {
+    dialogVisible.value = props.visible;
+  });
 
-const rotate = computed(() => {
-  return dialogVisible.value ? 180 : 0;
-});
+  const rotate = computed(() => {
+    return dialogVisible.value ? 180 : 0;
+  });
 
-const toggle = () => {
-  dialogVisible.value = !dialogVisible.value;
-  emits("update:visible", dialogVisible.value);
-};
+  const toggle = () => {
+    dialogVisible.value = !dialogVisible.value;
+    emits("update:visible", dialogVisible.value);
+  };
 
-const clickHandler = (value) => {
-  currentValue.value = value;
-  switch (value) {
-    case "line":
-      useMeasureLineSpace(window.Viewer);
-      break;
-    case "area":
-      useMeasureArea(window.Viewer);
-      break;
-    case "point":
-    case "polyline":
-    case "polygon":
-      useDraw(window.Viewer, value);
-      break;
-    case "clear":
-      removeAllDraw(window.Viewer);
-      currentValue.value = "";
-      break;
-    case "heatmap":
-      const coordinate = [80, 22, 130, 50];
-      const { max, data } = getRandomData(200);
-      heatMap.value = createHeatMap(max, data);
-      createRectangle(window.Viewer, coordinate, heatMap.value);
-      break;
-    case "clearHeatmap":
-      removeAllDraw(window.Viewer, ["热力图"]);
-      break;
-    default:
-      break;
-  }
-  emits("on-click", value);
-};
+  const clickHandler = (value) => {
+    currentValue.value = value;
+    switch (value) {
+      case "line":
+        useMeasureLineSpace(window.Viewer);
+        break;
+      case "area":
+        useMeasureArea(window.Viewer);
+        break;
+      case "point":
+      case "polyline":
+      case "polygon":
+        useDraw(window.Viewer, value);
+        break;
+      case "clear":
+        removeAllDraw(window.Viewer);
+        currentValue.value = "";
+        break;
+      case "heatmap":
+        const coordinate = [80, 22, 130, 50];
+        const { max, data } = getRandomData(200);
+        heatMap.value = createHeatMap(max, data);
+        createRectangle(window.Viewer, coordinate, heatMap.value);
+        break;
+      case "clearHeatmap":
+        removeAllDraw(window.Viewer, ["热力图"]);
+        break;
+      default:
+        break;
+    }
+    emits("on-click", value);
+  };
 </script>
 <style scoped lang="less">
-.panel-wrap {
-  font-size: 14px;
-  position: fixed;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 220px;
-  height: auto;
-  background: rgba(0, 0, 0, 0.4);
-  transition: right 0.24s ease-in-out;
-  border-radius: 5px;
-  border: 1px solid steelblue;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  z-index: 100000;
-  &.hide {
-    right: -220px;
-  }
-  .panel {
-    flex: 1;
+  .panel-wrap {
+    font-size: 14px;
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 220px;
+    height: auto;
+    background: rgba(0, 0, 0, 0.4);
+    transition: right 0.24s ease-in-out;
+    border-radius: 5px;
+    border: 1px solid steelblue;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-  }
-  .panel-header {
-    padding: 5px 10px;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid steelblue;
-    align-items: center;
-    span {
-      font-weight: bold;
+    z-index: 100000;
+    &.hide {
+      right: -220px;
     }
-    .close-btn {
-      cursor: pointer;
-      font-size: 16px;
-    }
-  }
-  .content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 0 10px;
-    &-wrap {
+    .panel {
       flex: 1;
       display: flex;
-      margin: 5px 0 10px;
-      .ant-space {
-        flex-wrap: wrap;
-      }
+      flex-direction: column;
     }
-    &-item {
-      border-bottom: 1px solid steelblue;
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-    .item-header {
-      text-align: left;
-      font-size: 13px;
+    .panel-header {
+      padding: 5px 10px;
       color: #fff;
-      margin-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid steelblue;
+      align-items: center;
+      span {
+        font-weight: bold;
+      }
+      .close-btn {
+        cursor: pointer;
+        font-size: 16px;
+      }
+    }
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 0 10px;
+      &-wrap {
+        flex: 1;
+        display: flex;
+        margin: 5px 0 10px;
+      }
+      &-item {
+        border-bottom: 1px solid steelblue;
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+      .item-header {
+        text-align: left;
+        font-size: 13px;
+        color: #fff;
+        margin-top: 5px;
+      }
+    }
+    .bar-icon {
+      width: 20px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      font-size: 18px;
+      color: #fff;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      position: absolute;
+      left: -21px;
+      top: calc(50% - 15px);
+      color: #fff;
+      background: rgb(70, 131, 180);
+      cursor: pointer;
+      opacity: 0.6;
+      transition: all 0.25s ease-in-out;
+      &:hover {
+        opacity: 1;
+      }
     }
   }
-  .bar-icon {
-    width: 20px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    font-size: 18px;
-    color: #fff;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    position: absolute;
-    left: -21px;
-    top: calc(50% - 15px);
-    color: #fff;
-    background: rgb(70, 131, 180);
-    cursor: pointer;
-    opacity: 0.6;
-    transition: all 0.25s ease-in-out;
-    &:hover {
-      opacity: 1;
-    }
-  }
-}
 </style>
