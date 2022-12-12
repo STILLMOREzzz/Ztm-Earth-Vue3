@@ -13,10 +13,10 @@
    */
   import { onMounted, computed } from "vue";
   import useInitCesiumMap from "@/hooks/useInitCesiumMap";
-  import { useAppStore } from "@/stores/modules/app";
+  import { useLoadingStore } from "@/stores/modules/loading";
   import { startLoading, endLoading } from "@/utils/loading";
 
-  const appStore = useAppStore();
+  const appStore = useLoadingStore();
   const cesiumLoading = computed(() => appStore.getPageLoading);
 
   onMounted(async () => {
@@ -39,7 +39,7 @@
 </script>
 <style lang="less" scoped>
   #cesiumContainer {
-    overflow: hidden;
+    /*overflow: hidden;*/
     width: 100%;
     height: 100%;
     margin: 0;

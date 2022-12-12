@@ -4,12 +4,12 @@
  * @Description: 缓冲存储
  * @LastEditors: 赵天铭
  * @LastEditTime: 2022-12-10 18:09
- * @FilePath: ztm-earth-vue3/src/stores/modules/app.js
+ * @FilePath: ztm-earth-vue3/src/stores/modules/loading.js
  */
 import { defineStore } from "pinia";
 import { store } from "@/stores";
 
-export const useAppStore = defineStore({
+export const useLoadingStore = defineStore({
   id: "app",
   state: () => ({
     pageLoading: true
@@ -27,6 +27,6 @@ export const useAppStore = defineStore({
 });
 
 // 可以在setup外使用
-export function useAppStoreWithOut() {
-  return useAppStore(store);
+export function useLoadingStoreWithOut() {
+  return useLoadingStore(store);
 }

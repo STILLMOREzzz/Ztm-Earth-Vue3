@@ -8,12 +8,12 @@
  */
 
 import useCesium from "@/hooks/useCesium";
-import { useAppStoreWithOut } from "@/stores/modules/app";
+import { useLoadingStoreWithOut } from "@/stores/modules/loading";
 import nProgress from "nprogress";
 import { startLoading, endLoading } from "@/utils/loading";
 
 const Cesium = useCesium();
-const appStores = useAppStoreWithOut();
+const appStores = useLoadingStoreWithOut();
 
 Cesium.Ion.defaultAccessToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiN2M3NDk0ZC0yNGE3LTRhY2YtOTczYi0xZDI3Y2QyNmM3YTgiLCJpZCI6MTA5MzksInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NTc3Mzc2MTR9.fn_I8XG7rubnJfiivYEOVwq3vPluZhvU37EPozFgAYI";
