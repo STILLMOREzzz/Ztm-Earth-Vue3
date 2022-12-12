@@ -1,4 +1,6 @@
 <template>
+  <controls />
+  <!--cesium的根节点必须挂载到app节点上，否则会导致在页面缩小时，页面底部出现空白部分-->
   <cesium-map />
   <panel-menu />
 </template>
@@ -13,4 +15,4 @@
    * @FilePath: ztm-earth-vue3/src/views/index.vue
    */
 </script>
-<style scoped></style>
+<style scoped lang="less"></style>
