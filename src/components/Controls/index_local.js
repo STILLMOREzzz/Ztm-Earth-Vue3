@@ -1,4 +1,4 @@
-const zh = {
+const ch = {
   Start: "开始",
   Measure: "测量",
   Layer: "图层",
@@ -14,4 +14,4 @@ const en = {
   Other: "Other"
 };
 
-export default { zh, en };
+export default { ch, en };
