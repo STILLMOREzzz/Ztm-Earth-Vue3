@@ -5,10 +5,11 @@
       :key="index"
       :class="['tab-button', { active: currentTab === index }]"
       @click="currentTab = index"
+      text
     >
       {{ value }}
     </el-button>
-    <component :is="currentTab"></component>
+    <component :is="currentTab" class="tab"></component>
   </div>
 </template>
 
@@ -18,7 +19,7 @@
    * @Date: 2022-12-12
    * @Description: 顶部控制
    * @LastEditors: 赵天铭
-   * @LastEditTime: 2022-12-13 0:11
+   * @LastEditTime: 2022-12-15 13:12
    * @FilePath: ztm-earth-vue3/src/views/Controls/index.vue
    */
   import language from "./index_local.js";
@@ -50,34 +51,27 @@
   .container {
     box-sizing: border-box;
     font-family: sans-serif;
-    border: 2rem solid #eee;
-    /*padding: 2rem 3rem;*/
-    /*margin-top: 1em;*/
-    /*margin-bottom: 4rem;*/
     user-select: none;
     overflow: hidden;
     height: auto;
     font-size: 1.6rem;
 
+    :deep(.el-button) {
+      margin: 0;
+    }
+
     .tab-button {
-      padding: 6px 10px;
-      border-top-left-radius: 3px;
-      border-top-right-radius: 3px;
-      border: 1px solid #ccc;
       cursor: pointer;
       background: #f0f0f0;
-      margin-bottom: -1px;
-      margin-right: -1px;
+
+      &:hover,
+      &.active {
+        background: #e0e0e0;
+      }
     }
-    .tab-button:hover {
-      background: #e0e0e0;
-    }
-    .tab-button.active {
-      background: #e0e0e0;
-    }
+
     .tab {
       border: 1px solid #ccc;
-      padding: 1rem;
     }
   }
 </style>

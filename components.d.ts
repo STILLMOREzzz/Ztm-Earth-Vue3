@@ -11,26 +11,15 @@ declare module '@vue/runtime-core' {
     Controls: typeof import('./src/components/Controls/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCol: typeof import('element-plus/es')['ElCol']
-    ElContainer: typeof import('element-plus/es')['ElContainer']
-    ElFooter: typeof import('element-plus/es')['ElFooter']
-    ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElMain: typeof import('element-plus/es')['ElMain']
     ElRow: typeof import('element-plus/es')['ElRow']
-    HeaderRow: typeof import('./src/components/HeaderRow/index.vue')['default']
-    Home: typeof import('./src/components/Controls/Home.vue')['default']
     Layer: typeof import('./src/components/Controls/Layer/index.vue')['default']
     Measure: typeof import('./src/components/Controls/Measure/index.vue')['default']
     Other: typeof import('./src/components/Controls/Other/index.vue')['default']
     PanelMenu: typeof import('./src/components/PanelMenu/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    start: typeof import('./src/components/Controls/Start/index.vue')['default']
     Start: typeof import('./src/components/Controls/Start/index.vue')['default']
     Tileset: typeof import('./src/components/Controls/Tileset/index.vue')['default']
-    view: typeof import('./src/components/Controls/View/index.vue')['default']
-  }
-  export interface ComponentCustomProperties {
-    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }
