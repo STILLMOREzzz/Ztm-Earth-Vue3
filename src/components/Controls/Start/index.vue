@@ -3,7 +3,7 @@
     <div class="controls-list" ref="container">
       <div class="controls-list-item">
         <span class="controls-list-name">{{ lang.control }}</span>
-        <div class="list-item-btnbox" @click="navigationControl">
+        <div class="list-item-btnbox" @click="navigationShow = !navigationShow">
           <div
             class="list-item-btn navigation-button"
             :class="navigationShow ? 'navigation-button-active' : ''"
@@ -26,12 +26,17 @@
    */
 
   import language from "./index_local.js";
-  import { ref, computed } from "vue";
+  import { ref, onMounted, watch } from "vue";
 
   const lang = ref(language.ch);
-  const navigationShow = ref(false);
+  const navigationShow = ref(true);
 
-  const navigationControl = () => {};
+  watch(navigationShow, () => {
+    navigationShow.value
+      ? (document.getElementById("navigationDiv").style.visibility = "visible")
+      : (document.getElementById("navigationDiv").style.visibility = "hidden");
+  });
+  onMounted(async () => {});
 </script>
 <style scoped lang="less">
   .navigation-button {

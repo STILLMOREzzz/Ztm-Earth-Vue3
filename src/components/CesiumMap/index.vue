@@ -15,6 +15,7 @@
   import useInitCesiumMap from "@/hooks/useInitCesiumMap";
   import { useLoadingStore } from "@/stores/modules/loading";
   import { startLoading, endLoading } from "@/utils/loading";
+  import CesiumNavigation from "@/hooks/useNavigation";
 
   const appStore = useLoadingStore();
   const cesiumLoading = computed(() => appStore.getPageLoading);
@@ -29,11 +30,12 @@
      */
     try {
       startLoading();
-      await useInitCesiumMap("cesiumContainer");
+      await useInitCesiumMap("cesiumContainer"); // 初始化cesium球体
+      await CesiumNavigation(window.Viewer); // 初始化导航控件
       endLoading();
     } catch (err) {
-      throw err;
       endLoading();
+      throw err;
     }
   });
 </script>

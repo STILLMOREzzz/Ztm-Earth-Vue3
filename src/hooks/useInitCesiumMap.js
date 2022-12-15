@@ -22,10 +22,8 @@ export default function useInitCesiumMap(viewerName = "cesiumContainer") {
   nProgress.start();
   startLoading();
   const viewer = new Cesium.Viewer("cesiumContainer", {
-    shadow: true,
     sceneMode: Cesium.SceneMode.SCENE3D,
     projectionPicker: false, //投影方式选择（3D、2D、Columbus）
-    navigation: false,
     // terrainProvider: Cesium.createWorldTerrain(),
     infoBox: false, // 显示 信息框
     fullscreenButton: false, // 是否显示全屏按钮
@@ -39,16 +37,14 @@ export default function useInitCesiumMap(viewerName = "cesiumContainer") {
     baseLayerPicker: false, // 基础影响图层选择器
     navigationHelpButton: false, // 导航帮助按钮
     animation: false, // 动画控件
-    timeline: false, // 时间控件
+    timeline: true, // 时间控件
     shadows: false, // 显示阴影
     shouldAnimate: true // 模型动画效果 大气
   });
 
-  window.Viewer = viewer; // 全局挂载方便调试
-
   viewer._cesiumWidget._creditContainer.style.display = "none"; //去除版权信息
-  viewer.scene.globe.depthTestAgainstTerrain = true; // 开启深度检测
-  viewer.scene.debugShowFramesPerSecond = true; // 显示 fps
+  viewer.scene.globe.depthTestAgainstTerrain = false; // 开启深度检测
+  viewer.scene.debugShowFramesPerSecond = false; // 显示 fps
 
   // 设置查看的默认矩形（当前设置在中国）
   Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(80, 22, 130, 50);
@@ -65,4 +61,6 @@ export default function useInitCesiumMap(viewerName = "cesiumContainer") {
       // console.log('地图资源加载中')
     }
   });
+
+  window.Viewer = viewer; // 全局挂载方便调试
 }
