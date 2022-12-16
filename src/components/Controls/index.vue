@@ -19,11 +19,11 @@
    * @Date: 2022-12-12
    * @Description: 顶部控制
    * @LastEditors: 赵天铭
-   * @LastEditTime: 2022-12-15 13:12
+   * @LastEditTime: 2022-12-16 10:04
    * @FilePath: ztm-earth-vue3/src/views/Controls/index.vue
    */
   import language from "./index_local.js";
-  import { ref, computed, defineComponent, onBeforeMount } from "vue";
+  import { ref, defineComponent, onBeforeMount } from "vue";
 
   import Start from "@/components/Controls/Start/index.vue";
   import Messure from "@/components/Controls/Measure/index.vue";
@@ -54,7 +54,7 @@
     user-select: none;
     overflow: hidden;
     height: auto;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
 
     :deep(.el-button) {
       margin: 0;

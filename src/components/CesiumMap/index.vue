@@ -8,7 +8,7 @@
    * @Date: 2022-12-11
    * @Description: 初始页面
    * @LastEditors: 赵天铭
-   * @LastEditTime: 2022-12-11 18:52
+   * @LastEditTime: 2022-12-16 10:03
    * @FilePath: ztm-earth-vue3/src/components/CesiumMap/index.vue
    */
   import { onMounted, computed } from "vue";
@@ -41,9 +41,9 @@
 </script>
 <style lang="less" scoped>
   #cesiumContainer {
-    /*overflow: hidden;*/
     width: 100%;
-    height: 100%;
+    // 这里cesium球的高度必须为页面高度减去controls的高度，否则会导致cesium部分在页面下部不显示
+    height: calc(100% - 12rem);
     margin: 0;
     padding: 0;
   }
