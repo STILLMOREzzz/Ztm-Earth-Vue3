@@ -12,7 +12,7 @@ import { showMessage } from "./status";
 // 创建 axios 对象
 const instance = axios.create({
   baseURL: "/", // 根路径
-  timeout: 5000, // 网络延时
+  timeout: 5000 // 网络延时
 });
 
 // 添加请求拦截器 => 前端给后端的参数【还没到后端响应】

@@ -88,5 +88,5 @@ export default {
     } else {
       el.style.cssText += `;left:0px;top:0px;`;
     }
-  },
+  }
 };

@@ -9,13 +9,17 @@
 import { createApp } from "vue";
 
 import App from "./App.vue";
-import router, { setupRouter } from "./router"; // 路由
+import router, { setupRouter } from "@/router"; // 路由
 
-import { setupDirective } from "./utils/directive/index";
-import { setupGlobalCom } from "./components/index";
-import { setupStore } from "./stores/index";
+import { setupDirective } from "@/utils/directive";
+import { setupGlobalCom } from "@/components";
+import { setupStore } from "@/stores";
+import ElementPlus from "element-plus";
 
-import "./assets/styles/index.less";
+// todo: 将element-icon按需引入
+import * as ElementPlusIconsVue from "@element-plus/icons-vue";
+
+import "@/assets/styles/index.less";
 import mitt from "mitt"; // eventBus
 
 const app = createApp(App);
@@ -29,6 +33,11 @@ setupGlobalCom(app); // 注册全局公用组件
 setupStore(app); // 注册pinia
 
 app.config.globalProperties.mittBus = mitt();
+app.use(ElementPlus, { size: "small", zIndex: 3000 });
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  // 注册所有icon图标
+  app.component(key, component);
+}
 
 router.isReady().then(() => {
   app.mount("#app");

@@ -7,6 +7,9 @@ import proxy from "./src/utils/proxy";
 import { VITE_PORT } from "./src/utils/constant";
 import cesium from "vite-plugin-cesium";
 import eslintPlugin from "vite-plugin-eslint";
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,8 +17,14 @@ export default defineConfig({
     vue(),
     cesium(),
     eslintPlugin({
-      include: ["src/**/*.js", "src/**/*.vue", "src/*.js", "src/*.vue"],
+      include: ["src/**/*.js", "src/**/*.vue", "src/*.js", "src/*.vue"]
     }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()]
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()]
+    })
   ],
   https: false, // 是否开启https
   ssr: false, // 服务端渲染
@@ -31,20 +40,18 @@ export default defineConfig({
   outDir: "dist",
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
+      "@": fileURLToPath(new URL("./src", import.meta.url))
+    }
   },
   css: {
     preprocessorOptions: {
       less: {
         modifyVars: {
-          hack: `true; @import (reference) "${path.resolve(
-            "src/assets/styles/base.less"
-          )}";`,
+          hack: `true; @import (reference) "${path.resolve("src/assets/styles/base.less")}";`
         },
-        javascriptEnabled: true,
-      },
-    },
+        javascriptEnabled: true
+      }
+    }
   },
   server: {
     hmr: { overlay: false }, // 禁用或配置 HMR 连接 设置 server.hmr.overlay 为 false 可以禁用服务器错误遮罩层
@@ -54,6 +61,6 @@ export default defineConfig({
     cors: false, // 类型： boolean | CorsOptions 为开发服务器配置 CORS。默认启用并允许任何源
     host: "0.0.0.0", // IP配置，支持从IP启动
     https: false,
-    proxy,
-  },
+    proxy
+  }
 });

@@ -73,10 +73,7 @@ export function getScrollBarSize(fresh) {
 // watch DOM change
 export const MutationObserver = isServer
   ? false
-  : window.MutationObserver ||
-    window.WebKitMutationObserver ||
-    window.MozMutationObserver ||
-    false;
+  : window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || false;
 
 const SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g;
 const MOZ_HACK_REGEXP = /^moz([A-Z])/;
@@ -130,7 +127,7 @@ function typeOf(obj) {
     "[object RegExp]": "regExp",
     "[object Undefined]": "undefined",
     "[object Null]": "null",
-    "[object Object]": "object",
+    "[object Object]": "object"
   };
   return map[toString.call(obj)];
 }
@@ -257,11 +254,7 @@ export function findComponentsUpward(context, componentName) {
 }
 
 // Find brothers components
-export function findBrothersComponents(
-  context,
-  componentName,
-  exceptMe = true
-) {
+export function findBrothersComponents(context, componentName, exceptMe = true) {
   let res = context.$parent.$children.filter((item) => {
     return item.$options.name === componentName;
   });
@@ -278,8 +271,7 @@ const trim = function (string) {
 /* istanbul ignore next */
 export function hasClass(el, cls) {
   if (!el || !cls) return false;
-  if (cls.indexOf(" ") !== -1)
-    throw new Error("className should not contain space.");
+  if (cls.indexOf(" ") !== -1) throw new Error("className should not contain space.");
   if (el.classList) {
     return el.classList.contains(cls);
   } else {
@@ -339,7 +331,7 @@ export const dimensionMap = {
   md: "768px",
   lg: "992px",
   xl: "1200px",
-  xxl: "1600px",
+  xxl: "1600px"
 };
 
 export function setMatchMedia() {
@@ -349,7 +341,7 @@ export function setMatchMedia() {
         media: mediaQuery,
         matches: false,
         on() {},
-        off() {},
+        off() {}
       };
     };
     window.matchMedia = window.matchMedia || matchMediaPolyfill;
