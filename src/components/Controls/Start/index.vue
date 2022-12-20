@@ -17,10 +17,10 @@
 
 <script setup>
   /**
-   * @Author: 赵天铭
+   * @Author: STILLMOREzzz
    * @Date: 2022-12-12
    * @Description: 开始模块
-   * @LastEditors: 赵天铭
+   * @LastEditors: STILLMOREzzz
    * @LastEditTime: 2022-12-16 0:35
    * @FilePath: ztm-earth-vue3/src/views/Controls/Start/index.vue
    */

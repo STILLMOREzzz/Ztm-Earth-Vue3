@@ -15,10 +15,10 @@
 
 <script>
   /**
-   * @Author: 赵天铭
+   * @Author: STILLMOREzzz
    * @Date: 2022-12-12
    * @Description: 顶部控制
-   * @LastEditors: 赵天铭
+   * @LastEditors: STILLMOREzzz
    * @LastEditTime: 2022-12-16 10:04
    * @FilePath: ztm-earth-vue3/src/views/Controls/index.vue
    */

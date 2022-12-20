@@ -33,10 +33,10 @@
 
 <script setup>
   /**
-   * @Author: 赵天铭
+   * @Author: STILLMOREzzz
    * @Date: 2022-12-10
    * @Description: 右侧的功能栏
-   * @LastEditors: 赵天铭
+   * @LastEditors: STILLMOREzzz
    * @LastEditTime: 2022-12-10 16:35
    * @FilePath: ztm-earth-vue3/src/components/PanelMenu/index.vue
    */

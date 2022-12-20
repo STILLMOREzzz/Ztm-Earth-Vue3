@@ -1,8 +1,8 @@
 /**
- * @Author: 赵天铭
+ * @Author: STILLMOREzzz
  * @Date: 2022-12-08
  * @Description: 用来解决跨域问题
- * @LastEditors: 赵天铭
+ * @LastEditors: STILLMOREzzz
  * @LastEditTime: 2022-12-07
  * @FilePath: ztm-earth-vue3/src/utils/proxy.js
  */

@@ -1,8 +1,8 @@
 /**
- * @Author: 赵天铭
+ * @Author: STILLMOREzzz
  * @Date: 2022-12-07
  * @Description: 缓冲存储
- * @LastEditors: 赵天铭
+ * @LastEditors: STILLMOREzzz
  * @LastEditTime: 2022-12-10 18:09
  * @FilePath: ztm-earth-vue3/src/stores/modules/loading.js
  */

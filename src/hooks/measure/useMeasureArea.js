@@ -1,8 +1,8 @@
 /**
- * @Author: 赵天铭
+ * @Author: STILLMOREzzz
  * @Date: 2022-12-10
  * @Description: 计算线段长度
- * @LastEditors: 赵天铭
+ * @LastEditors: STILLMOREzzz
  * @LastEditTime: 2022-12-10 12:23
  * @FilePath: ztm-earth-vue3/src/hooks/measure/useMeasureArea.js
  */

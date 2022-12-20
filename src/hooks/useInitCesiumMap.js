@@ -1,8 +1,8 @@
 /**
- * @Author: 赵天铭
+ * @Author: STILLMOREzzz
  * @Date: 2022-12-11
  * @Description: 初始化地球
- * @LastEditors: 赵天铭
+ * @LastEditors: STILLMOREzzz
  * @LastEditTime: 2022-12-11 18:55
  * @FilePath: ztm-earth-vue3/src/hooks/useInitCesiumMap.js
  */

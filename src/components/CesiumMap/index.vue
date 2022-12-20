@@ -4,10 +4,10 @@
 
 <script setup>
   /**
-   * @Author: 赵天铭
+   * @Author: STILLMOREzzz
    * @Date: 2022-12-11
    * @Description: 初始页面
-   * @LastEditors: 赵天铭
+   * @LastEditors: STILLMOREzzz
    * @LastEditTime: 2022-12-16 10:03
    * @FilePath: ztm-earth-vue3/src/components/CesiumMap/index.vue
    */

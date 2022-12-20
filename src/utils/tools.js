@@ -1,8 +1,8 @@
 /**
- * @Author: 赵天铭
+ * @Author: STILLMOREzzz
  * @Date: 2022-12-08
  * @Description: 常用的工具函数
- * @LastEditors: 赵天铭
+ * @LastEditors: STILLMOREzzz
  * @LastEditTime: 2022-12-08 21:24
  * @FilePath: ztm-earth-vue3/src/utils/tools.js
  */

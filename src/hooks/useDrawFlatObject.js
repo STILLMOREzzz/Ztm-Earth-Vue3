@@ -1,8 +1,8 @@
 /**
- * @Author: 赵天铭
+ * @Author: STILLMOREzzz
  * @Date: 2022-12-10
  * @Description: 绘制平面对象
- * @LastEditors: 赵天铭
+ * @LastEditors: STILLMOREzzz
  * @LastEditTime: 2022-12-10 10:45
  * @FilePath: ztm-earth-vue3/src/hooks/useDrawFlatObject.js
  */
