@@ -1,12 +1,13 @@
 /**
- * @Author: 赵天铭
+ * @Author: STILLMOREzzz
  * @Date: 2022-12-11
  * @Description: 初始化地球
- * @LastEditors: 赵天铭
+ * @LastEditors: STILLMOREzzz
  * @LastEditTime: 2022-12-11 18:55
  * @FilePath: ztm-earth-vue3/src/hooks/useInitCesiumMap.js
  */
 
+import { markRaw } from "vue";
 import useCesium from "@/hooks/useCesium";
 import { useLoadingStoreWithOut } from "@/stores/modules/loading";
 import nProgress from "nprogress";
@@ -44,7 +45,7 @@ export default function useInitCesiumMap(viewerName = "cesiumContainer") {
 
   viewer._cesiumWidget._creditContainer.style.display = "none"; //去除版权信息
   viewer.scene.globe.depthTestAgainstTerrain = false; // 开启深度检测
-  viewer.scene.debugShowFramesPerSecond = false; // 显示 fps
+  viewer.scene.debugShowFramesPerSecond = true; // 显示 fps
 
   // 设置查看的默认矩形（当前设置在中国）
   Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(80, 22, 130, 50);
@@ -62,5 +63,6 @@ export default function useInitCesiumMap(viewerName = "cesiumContainer") {
     }
   });
 
-  window.Viewer = viewer; // 全局挂载方便调试
+  // 将 Viewer 对象标记为非响应式，避免 Vue 响应式劫持产生的访问性能问题
+  window.Viewer = markRaw(viewer); // 全局挂载方便调试
 }

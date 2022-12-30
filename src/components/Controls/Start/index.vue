@@ -17,16 +17,16 @@
 
 <script setup>
   /**
-   * @Author: 赵天铭
+   * @Author: STILLMOREzzz
    * @Date: 2022-12-12
    * @Description: 开始模块
-   * @LastEditors: 赵天铭
+   * @LastEditors: STILLMOREzzz
    * @LastEditTime: 2022-12-16 0:35
    * @FilePath: ztm-earth-vue3/src/views/Controls/Start/index.vue
    */
 
   import language from "./index_local.js";
-  import { ref, onMounted, watch } from "vue";
+  import { ref, watch } from "vue";
 
   const lang = ref(language.ch);
   const navigationShow = ref(true);
@@ -36,7 +36,6 @@
       ? (document.getElementById("navigationDiv").style.visibility = "visible")
       : (document.getElementById("navigationDiv").style.visibility = "hidden");
   });
-  onMounted(async () => {});
 </script>
 <style scoped lang="less">
   .navigation-button {

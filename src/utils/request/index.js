@@ -1,8 +1,8 @@
 /**
- * @Author: 赵天铭
+ * @Author: STILLMOREzzz
  * @Date: 2022-12-06
  * @Description: 二次封装axios
- * @LastEditors: 赵天铭
+ * @LastEditors: STILLMOREzzz
  * @LastEditTime: 2022-12-06
  * @FilePath: ztm-earth-vue3/src/utils/request/index.js
  */

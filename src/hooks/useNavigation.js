@@ -1,8 +1,8 @@
 /**
- * @Author: 赵天铭
+ * @Author: STILLMOREzzz
  * @Date: 2022-12-15
  * @Description: 导航控件
- * @LastEditors: 赵天铭
+ * @LastEditors: STILLMOREzzz
  * @LastEditTime: 2022-12-15 20:56
  * @FilePath: ztm-earth-vue3/src/hooks/useNavigation.js
  */

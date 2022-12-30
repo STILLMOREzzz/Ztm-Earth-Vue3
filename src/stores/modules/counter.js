@@ -1,8 +1,8 @@
 /**
- * @Author: 赵天铭
+ * @Author: STILLMOREzzz
  * @Date: 2022-12-06
  * @Description: vite初始化的pinia示例
- * @LastEditors: 赵天铭
+ * @LastEditors: STILLMOREzzz
  * @LastEditTime: 2022-12-06
  * @FilePath: ztm-earth-vue3/src/stores/modules/counter.js
  */

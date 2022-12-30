@@ -1,15 +1,46 @@
 <template>
-  <div> 123 </div>
+  <div class="controls-template">
+    <div class="controls-list" ref="container">
+      <div class="controls-list-item">
+        <span class="controls-list-name">{{ lang.layerControl }}</span>
+        <div class="list-item-btnbox" @click="layerShow = !layerShow">
+          <div
+            class="list-item-btn layer-button"
+            :class="layerShow ? 'layer-button-active' : ''"
+          ></div>
+          <span class="list-item-name">{{ lang.layer }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
   /**
-   * @Author: 赵天铭
+   * @Author: STILLMOREzzz
    * @Date: 2022-12-12
    * @Description: 视图模块
-   * @LastEditors: 赵天铭
-   * @LastEditTime: 2022-12-12 16:40
+   * @LastEditors: STILLMOREzzz
+   * @LastEditTime: 2022-12-30 19:28
    * @FilePath: ztm-earth-vue3/src/views/Controls/Layer/index.vue
    */
+
+  import language from "./index_local.js";
+  import { ref } from "vue";
+
+  const lang = ref(language.ch);
+  const layerShow = ref(false);
 </script>
-<style scoped></style>
+<style scoped lang="less">
+  .layer-button {
+    background: url("../../../assets/img/controls/layerTree.png") no-repeat;
+    background-size: contain;
+    cursor: pointer;
+  }
+
+  .layer-button-active {
+    background: url("../../../assets/img/controls/layerTree_on.png") no-repeat;
+    background-size: contain;
+    cursor: pointer;
+  }
+</style>

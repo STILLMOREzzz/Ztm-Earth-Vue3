@@ -1,8 +1,8 @@
 /**
- * @Author: 赵天铭
+ * @Author: STILLMOREzzz
  * @Date: 2022-12-10
  * @Description: 获取鼠标点击的屏幕坐标
- * @LastEditors: 赵天铭
+ * @LastEditors: STILLMOREzzz
  * @LastEditTime: 2022-12-10 10:33
  * @FilePath: ztm-earth-vue3/src/hooks/useMousePosition.js
  */

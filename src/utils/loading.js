@@ -1,8 +1,8 @@
 /**
- * @Author: 赵天铭
+ * @Author: STILLMOREzzz
  * @Date: 2022-12-11
  * @Description: 用于加载资源时的全屏loading
- * @LastEditors: 赵天铭
+ * @LastEditors: STILLMOREzzz
  * @LastEditTime: 2022-12-11 18:49
  * @FilePath: ztm-earth-vue3/src/utils/loading.js
  */
