@@ -26,7 +26,7 @@
    */
 
   import language from "./index_local.js";
-  import { ref, onMounted, watch } from "vue";
+  import { ref, watch } from "vue";
 
   const lang = ref(language.ch);
   const navigationShow = ref(true);
@@ -36,7 +36,6 @@
       ? (document.getElementById("navigationDiv").style.visibility = "visible")
       : (document.getElementById("navigationDiv").style.visibility = "hidden");
   });
-  onMounted(async () => {});
 </script>
 <style scoped lang="less">
   .navigation-button {
