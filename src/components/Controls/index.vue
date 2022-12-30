@@ -21,7 +21,7 @@
    * @Date: 2022-12-12
    * @Description: 顶部控制
    * @LastEditors: STILLMOREzzz
-   * @LastEditTime: 2022-12-16 10:04
+   * @LastEditTime: 2022-12-30 16:47
    * @FilePath: ztm-earth-vue3/src/views/Controls/index.vue
    */
   import language from "./index_local.js";
