@@ -9,7 +9,9 @@
     >
       {{ value }}
     </el-button>
-    <component :is="currentTab" class="tab"></component>
+    <keep-alive>
+      <component :is="currentTab" class="tab"></component>
+    </keep-alive>
   </div>
 </template>
 
