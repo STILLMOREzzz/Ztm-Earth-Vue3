@@ -9,7 +9,7 @@
    * @Description: 瓦片模块
    * @LastEditors: STILLMOREzzz
    * @LastEditTime: 2022-12-12 16:40
-   * @FilePath: ztm-earth-vue3/src/views/Controls/Tileset/index.vue
+   * @FilePath: ztm-earth-vue3/src/views/Controls/Tileset/index.js
    */
 </script>
 <style scoped></style>

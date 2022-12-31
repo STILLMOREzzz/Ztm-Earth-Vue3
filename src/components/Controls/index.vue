@@ -10,7 +10,7 @@
       {{ value }}
     </el-button>
     <keep-alive>
-      <component :is="currentTab" class="tab"></component>
+      <component :is="currentTab"></component>
     </keep-alive>
   </div>
 </template>
@@ -21,8 +21,8 @@
    * @Date: 2022-12-12
    * @Description: 顶部控制
    * @LastEditors: STILLMOREzzz
-   * @LastEditTime: 2022-12-30 16:47
-   * @FilePath: ztm-earth-vue3/src/views/Controls/index.vue
+   * @LastEditTime: 2022-12-31 19:59
+   * @FilePath: ztm-earth-vue3/src/views/Controls/index.js
    */
   import language from "./index_local.js";
   import { ref, defineComponent, onBeforeMount } from "vue";
@@ -70,10 +70,6 @@
       &.active {
         background: #e0e0e0;
       }
-    }
-
-    .tab {
-      border: 1px solid #ccc;
     }
   }
 </style>

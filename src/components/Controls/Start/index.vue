@@ -22,7 +22,7 @@
    * @Description: 开始模块
    * @LastEditors: STILLMOREzzz
    * @LastEditTime: 2022-12-16 0:35
-   * @FilePath: ztm-earth-vue3/src/views/Controls/Start/index.vue
+   * @FilePath: ztm-earth-vue3/src/views/Controls/Start/index.js
    */
 
   import language from "./index_local.js";

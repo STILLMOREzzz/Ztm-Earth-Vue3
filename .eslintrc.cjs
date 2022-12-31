@@ -64,7 +64,7 @@ module.exports = defineConfig({
   }
   //  overrides: [ // 若要开启组件命名规则校验，建议选这种方式
   //    {
-  //      files: ['src/views/index.vue', 'src/views/**/index.vue'], // 匹配 views 和任意多级路径中的 index.vue
+  //      files: ['src/views/index.js', 'src/views/**/index.js'], // 匹配 views 和任意多级路径中的 index.js
   //      rules: {
   //        'vue/multi-word-component-names': 'off' // 给上面匹配的文件指定规则——关闭命名规则校验
   //      }

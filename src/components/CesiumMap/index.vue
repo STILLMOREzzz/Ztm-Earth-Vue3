@@ -9,7 +9,7 @@
    * @Description: 初始页面
    * @LastEditors: STILLMOREzzz
    * @LastEditTime: 2022-12-16 10:03
-   * @FilePath: ztm-earth-vue3/src/components/CesiumMap/index.vue
+   * @FilePath: ztm-earth-vue3/src/components/CesiumMap/index.js
    */
   import { onMounted, computed } from "vue";
   import useInitCesiumMap from "@/hooks/useInitCesiumMap";

@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElRow: typeof import('element-plus/es')['ElRow']
     Layer: typeof import('./src/components/Controls/Layer/index.vue')['default']
+    LayerManager: typeof import('./src/components/LayerManager/index.vue')['default']
     Measure: typeof import('./src/components/Controls/Measure/index.vue')['default']
     Other: typeof import('./src/components/Controls/Other/index.vue')['default']
     PanelMenu: typeof import('./src/components/PanelMenu/index.vue')['default']
