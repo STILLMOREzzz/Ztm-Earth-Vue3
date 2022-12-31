@@ -38,7 +38,7 @@
    * @Description: 右侧的功能栏
    * @LastEditors: STILLMOREzzz
    * @LastEditTime: 2022-12-10 16:35
-   * @FilePath: ztm-earth-vue3/src/components/PanelMenu/index.vue
+   * @FilePath: ztm-earth-vue3/src/components/PanelMenu/index.js
    */
 
   import { ref, reactive, watchEffect, computed } from "vue";

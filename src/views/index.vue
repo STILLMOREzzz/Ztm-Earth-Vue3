@@ -12,7 +12,7 @@
    * @Description: 初始页面
    * @LastEditors: STILLMOREzzz
    * @LastEditTime: 2022-12-11 16:01
-   * @FilePath: ztm-earth-vue3/src/views/index.vue
+   * @FilePath: ztm-earth-vue3/src/views/index.js
    */
 </script>
 <style scoped lang="less"></style>
