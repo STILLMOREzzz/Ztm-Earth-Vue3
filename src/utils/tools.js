@@ -3,9 +3,23 @@
  * @Date: 2022-12-08
  * @Description: 常用的工具函数
  * @LastEditors: STILLMOREzzz
- * @LastEditTime: 2022-12-08 21:24
+ * @LastEditTime: 2023-01-02 13:58
  * @FilePath: ztm-earth-vue3/src/utils/tools.js
  */
+
+/**
+ * 在Array的原型链上添加removeDuplicates函数，目的是对数组去重
+ * @returns {*[新数组]}
+ */
+Array.prototype.removeDuplicates = function () {
+  var arr = [];
+  for (var i = 0; i < this.length; i++) {
+    if (arr.indexOf(this[i]) == -1) {
+      arr.push(this[i]);
+    }
+  }
+  return arr;
+};
 
 /**
  * 判断对象是否为元素。
