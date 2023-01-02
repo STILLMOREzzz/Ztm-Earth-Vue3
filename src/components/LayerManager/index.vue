@@ -2,7 +2,7 @@
   <div
     class="layer-manager"
     v-dragMove="{ DragButton: '.card-header', DragVindow: '.common-panel' }"
-    v-show="layer.layerShow"
+    v-show="layerManagerShow"
   >
     <el-card class="common-panel">
       <template #header>
@@ -25,24 +25,20 @@
    * @Date: 2022-12-31
    * @Description: 图层管理
    * @LastEditors: STILLMOREzzz
-   * @LastEditTime: 2022-12-31 12:06
+   * @LastEditTime: 2022-01-02 12:34
    * @FilePath: ztm-earth-vue3/src/components/LayerManager/index.js
    */
   import { ref } from "vue";
+  import { useLayerStore } from "@/stores/modules/layer";
+  import { storeToRefs } from "pinia";
 
-  const layer = defineProps({
-    layerShow: {
-      type: Boolean,
-      default: false
-    }
-  });
-
-  const emits = defineEmits(["layer-toggle"]);
+  const layerStore = useLayerStore();
+  const { layerManagerShow } = storeToRefs(layerStore);
 
   const title = ref("图层管理");
 
   const onClose = () => {
-    emits("layer-toggle");
+    layerStore.closeLayerManagerShow();
   };
 </script>
 <style scoped lang="less">
