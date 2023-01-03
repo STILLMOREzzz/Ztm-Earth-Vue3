@@ -26,14 +26,13 @@
    */
 
   import language from "./index_local.js";
-  import { ref } from "vue";
+  import { ref, reactive } from "vue";
   import { useLayerStore } from "@/stores/modules/layer";
   import { storeToRefs } from "pinia";
 
   const layerStore = useLayerStore();
   const { layerManagerShow: layerShow } = storeToRefs(layerStore);
   const lang = ref(language.ch);
-
   const onLayerManagerToggle = () => {
     layerStore.changeLayerManagerShow();
   };

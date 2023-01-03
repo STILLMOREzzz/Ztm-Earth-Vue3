@@ -1,22 +1,17 @@
 <template>
-  <div
-    class="layer-manager"
-    v-dragMove="{ DragButton: '.card-header', DragVindow: '.common-panel' }"
-    v-show="layerManagerShow"
-  >
-    <el-card class="common-panel">
-      <template #header>
-        <div class="card-header">
-          <span>{{ title }}</span>
-          <el-button class="button" @click="onClose">
-            <el-icon style="vertical-align: middle">
-              <close />
-            </el-icon>
-          </el-button>
-        </div>
-      </template>
-      45364
-    </el-card>
+  <div class="one">
+    <el-dialog
+      draggable
+      v-model="layerManagerShow"
+      destroy-on-close
+      @close="onClose"
+      width="30%"
+      :title="title"
+      :modal="false"
+      :close-on-click-modal="false"
+    >
+      <el-tree :data="data" @node-click="handleNodeClick" />
+    </el-dialog>
   </div>
 </template>
 <script setup>
@@ -28,7 +23,7 @@
    * @LastEditTime: 2022-01-02 12:34
    * @FilePath: ztm-earth-vue3/src/components/LayerManager/index.js
    */
-  import { ref } from "vue";
+  import { reactive, ref, onMounted } from "vue";
   import { useLayerStore } from "@/stores/modules/layer";
   import { storeToRefs } from "pinia";
 
@@ -40,8 +35,75 @@
   const onClose = () => {
     layerStore.closeLayerManagerShow();
   };
+  const handleNodeClick = (data) => {
+    console.log(data);
+  };
+  const data = reactive([
+    {
+      label: "Level one 1",
+      children: [
+        {
+          label: "Level two 1-1",
+          children: [
+            {
+              label: "Level three 1-1-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      label: "Level one 2",
+      children: [
+        {
+          label: "Level two 2-1",
+          children: [
+            {
+              label: "Level three 2-1-1"
+            }
+          ]
+        },
+        {
+          label: "Level two 2-2",
+          children: [
+            {
+              label: "Level three 2-2-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      label: "Level one 3",
+      children: [
+        {
+          label: "Level two 3-1",
+          children: [
+            {
+              label: "Level three 3-1-1"
+            }
+          ]
+        },
+        {
+          label: "Level two 3-2",
+          children: [
+            {
+              label: "Level three 3-2-1"
+            }
+          ]
+        }
+      ]
+    }
+  ]);
 </script>
 <style scoped lang="less">
+  .one {
+    pointer-events: none;
+  }
+  :deep(.el-dialog) {
+    pointer-events: auto;
+  }
+
   .layer-manager {
     z-index: 990 - 20;
     position: absolute;
