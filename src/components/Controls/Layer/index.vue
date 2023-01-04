@@ -26,7 +26,7 @@
    */
 
   import language from "./index_local.js";
-  import { ref,  nextTick } from "vue";
+  import { ref, nextTick } from "vue";
   import { useLayerStore } from "@/stores/modules/layer";
   import { storeToRefs } from "pinia";
 

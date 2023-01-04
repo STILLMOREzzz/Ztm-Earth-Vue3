@@ -37,7 +37,7 @@ const tdtToken = "d3e838aa7277f50df4ee4b5a1c09c067";
 export const useLayerStore = defineStore("layer", {
   state: () => ({
     layerManagerShow: false,
-    defaultTree: [3],
+    defaultTree: [0],
     layers: [
       {
         id: -1,
