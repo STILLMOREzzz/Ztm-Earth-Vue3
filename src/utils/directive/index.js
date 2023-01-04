@@ -105,4 +105,181 @@ export function setupDirective(app) {
       };
     };
   });
+  app.directive("drag", (el, binding) => {
+    const minWidth = 400;
+    const minHeight = 300;
+    // 拖拽按钮
+    const dialogHeaderEl = el.querySelector(binding.value.DragButton);
+    dialogHeaderEl.style.cssText += ";cursor:move;";
+    // 拖拽窗口 DragVindow
+    const dragDomBody = el.querySelector(binding.value.DragVindow);
+    const dragDom = el.querySelector(binding.value.DragVindow);
+
+    // 如果是自定义组件 设置窗口默认居中
+    if (binding.value.custom) {
+      const [left, top] = [
+        screenWidth - DragVindow.offsetWidth,
+        screenHeight - DragVindow.offsetHeight
+      ];
+      DragVindow.style.cssText += `;left:${left / 2}px;top:${top / 2}px;`;
+    }
+    // if (binding.value) {
+    //   // 此部分的样式为单独编写 根据自己需求
+    //   const leftDiv = document.createElement("div");
+    //   leftDiv.id = "leftdiv";
+    //   leftDiv.onmousedown = (e) => {
+    //     Drag(e);
+    //   };
+    //   dragDomBody.appendChild(leftDiv);
+    //   const rightDiv = document.createElement("div");
+    //   rightDiv.id = "rightdiv";
+    //   rightDiv.onmousedown = (e) => {
+    //     Drag(e);
+    //   };
+    //   dragDomBody.appendChild(rightDiv);
+    //   const bottomtDiv = document.createElement("div");
+    //   bottomtDiv.id = "bottomtdiv";
+    //   bottomtDiv.onmousedown = (e) => {
+    //     Drag(e);
+    //   };
+    //   dragDomBody.appendChild(bottomtDiv);
+    // }
+    // dragDom.style.cssText += ';bottom:0px;'
+    // 获取原有属性 火狐谷歌 window.getComputedStyle(dom元素, null);
+    const sty = (function () {
+      return (dom, attr) => getComputedStyle(dom, null)[attr];
+    })();
+    // 拖拉函数
+    function Drag(ev) {
+      // dragDom.style.userSelect = 'none';
+      const clientX = ev.clientX;
+      const clientY = ev.clientY;
+      const elW = dragDom.clientWidth;
+      const elH = dragDom.clientHeight;
+      const EloffsetLeft = dragDom.offsetLeft;
+      const EloffsetTop = dragDom.offsetTop;
+      dragDom.style.userSelect = "none"; // 禁止内容被选中
+      const ELscrollTop = el.scrollTop;
+      document.onmousemove = function (e) {
+        const modalContent = el.querySelector(".modal");
+        console.log("modalContent", modalContent);
+
+        e.stopPropagation(); // 移动时禁用默认事件
+        // 左侧鼠标拖拽位置
+        if (clientX > EloffsetLeft && clientX < EloffsetLeft + 10) {
+          // 往左拖拽
+          if (clientX > e.clientX) {
+            dragDom.style.width = elW + (clientX - e.clientX) * 2 + "px";
+          }
+          // 往右拖拽
+          if (clientX < e.clientX) {
+            if (dragDom.clientWidth < minWidth) {
+            } else {
+              dragDom.style.width = elW - (e.clientX - clientX) * 2 + "px";
+            }
+          }
+        }
+        // 右侧鼠标拖拽位置
+        if (clientX > EloffsetLeft + elW - 10 && clientX < EloffsetLeft + elW) {
+          // 往左拖拽
+          if (clientX > e.clientX) {
+            // eslint-disable-next-line no-empty
+            if (dragDom.clientWidth < minWidth) {
+            } else {
+              dragDom.style.width = elW - (clientX - e.clientX) * 2 + "px";
+            }
+          }
+          // 往右拖拽
+          if (clientX < e.clientX) {
+            dragDom.style.width = elW + (e.clientX - clientX) * 2 + "px";
+          }
+        }
+        // 底部鼠标拖拽位置
+        if (
+          ELscrollTop + clientY > EloffsetTop + elH - 20 &&
+          ELscrollTop + clientY < EloffsetTop + elH
+        ) {
+          // 往上拖拽
+
+          if (clientY > e.clientY) {
+            if (dragDom.clientHeight >= minHeight) {
+              dragDom.style.height = elH - (clientY - e.clientY) * 2 + "px";
+              modalContent.style.maxHeight = elH - (clientY - e.clientY) * 2 - 100 + "px";
+            }
+          }
+          // 往下拖拽
+          if (clientY < e.clientY) {
+            dragDom.style.height = elH + (e.clientY - clientY) * 2 + "px";
+            modalContent.style.maxHeight = elH + (e.clientY - clientY) * 2 - 100 + "px";
+          }
+        }
+      };
+
+      // 拉伸结束
+      document.onmouseup = function (e) {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+    }
+    // 头部移动
+    dialogHeaderEl.onmousedown = (e) => {
+      // 鼠标按下，计算当前元素距离可视区的距离
+      const disX = e.clientX - dialogHeaderEl.offsetLeft;
+      const disY = e.clientY - dialogHeaderEl.offsetTop;
+      const screenWidth = document.body.clientWidth; // body 当前宽度
+      const screenHeight = document.documentElement.clientHeight; // 可见区域高度(应为body高度，可某些环境下无法获取)
+
+      const dragDomWidth = dragDom.offsetWidth; // 对话框宽度
+      const dragDomheight = dragDom.offsetHeight; // 对话框高度
+
+      const minDragDomLeft = dragDom.offsetLeft;
+      const maxDragDomLeft = screenWidth - dragDom.offsetLeft - dragDomWidth;
+
+      const minDragDomTop = dragDom.offsetTop;
+      const maxDragDomTop = screenHeight - dragDom.offsetTop - dragDomheight;
+
+      // 获取到的值带px 正则匹配替换
+      let styL = sty(dragDom, "left");
+      // 为兼容ie
+      if (styL === "auto") styL = "0px";
+      let styT = sty(dragDom, "top");
+
+      // console.log(styL)
+      // 注意在ie中 第一次获取到的值为组件自带50% 移动之后赋值为px
+      if (styL.includes("%")) {
+        styL = +document.body.clientWidth * (+styL.replace(/%/g, "") / 100);
+        styT = +document.body.clientHeight * (+styT.replace(/%/g, "") / 100);
+      } else {
+        styL = +styL.replace(/px/g, "");
+        styT = +styT.replace(/px/g, "");
+      }
+
+      document.onmousemove = function (e) {
+        // 通过事件委托，计算移动的距离
+        let left = e.clientX - disX;
+        let top = e.clientY - disY;
+        // 边界处理
+        if (-left > minDragDomLeft) {
+          left = -minDragDomLeft;
+        } else if (left > maxDragDomLeft) {
+          left = maxDragDomLeft;
+        }
+
+        if (-top > minDragDomTop) {
+          top = -minDragDomTop;
+        } else if (top > maxDragDomTop) {
+          top = maxDragDomTop;
+        }
+
+        // 移动当前元素
+        dragDom.style.cssText += `;left:${left + styL}px;top:${top + styT}px;`;
+      };
+
+      document.onmouseup = function (e) {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+      return false;
+    };
+  });
 }

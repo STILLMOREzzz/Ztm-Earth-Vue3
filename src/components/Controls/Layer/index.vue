@@ -13,7 +13,6 @@
       </div>
     </div>
   </div>
-  <layer-manager :layerShow="layerShow" @layer-toggle="onLayerManagerToggle"></layer-manager>
 </template>
 
 <script setup>
@@ -22,18 +21,22 @@
    * @Date: 2022-12-12
    * @Description: 视图模块
    * @LastEditors: STILLMOREzzz
-   * @LastEditTime: 2022-12-30 19:28
+   * @LastEditTime: 2022-01-02 12:34
    * @FilePath: ztm-earth-vue3/src/views/Controls/Layer/index.js
    */
 
   import language from "./index_local.js";
-  import { ref } from "vue";
+  import { ref,  nextTick } from "vue";
+  import { useLayerStore } from "@/stores/modules/layer";
+  import { storeToRefs } from "pinia";
 
+  const layerStore = useLayerStore();
+  const { layerManagerShow: layerShow } = storeToRefs(layerStore);
   const lang = ref(language.ch);
-  const layerShow = ref(false);
-
   const onLayerManagerToggle = () => {
-    layerShow.value = !layerShow.value;
+    nextTick(() => {
+      layerStore.changeLayerManagerShow();
+    });
   };
 </script>
 <style scoped lang="less">

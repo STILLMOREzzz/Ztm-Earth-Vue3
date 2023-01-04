@@ -12,6 +12,7 @@
     <keep-alive>
       <component :is="currentTab"></component>
     </keep-alive>
+    <layer-manager></layer-manager>
   </div>
 </template>
 
@@ -21,7 +22,7 @@
    * @Date: 2022-12-12
    * @Description: 顶部控制
    * @LastEditors: STILLMOREzzz
-   * @LastEditTime: 2022-12-31 19:59
+   * @LastEditTime: 2022-01-02 12:34
    * @FilePath: ztm-earth-vue3/src/views/Controls/index.js
    */
   import language from "./index_local.js";

@@ -1,22 +1,27 @@
 <template>
-  <div
-    class="layer-manager"
-    v-dragMove="{ DragButton: '.card-header', DragVindow: '.common-panel' }"
-    v-show="layer.layerShow"
-  >
-    <el-card class="common-panel">
-      <template #header>
-        <div class="card-header">
-          <span>{{ title }}</span>
-          <el-button class="button" @click="onClose">
-            <el-icon style="vertical-align: middle">
-              <close />
-            </el-icon>
-          </el-button>
-        </div>
-      </template>
-      45364
-    </el-card>
+  <div class="one">
+    <el-dialog
+      draggable
+      v-model="layerManagerShow"
+      destroy-on-close
+      @close="onClose"
+      width="20%"
+      :title="title"
+      :modal="false"
+      :close-on-click-modal="false"
+    >
+      <el-tree
+        ref="layerTree"
+        :data="layers"
+        @node-click="handleNodeClick"
+        :show-checkbox="true"
+        node-key="id"
+        default-expand-all
+        :check-strictly="true"
+        :default-checked-keys="defaultTree"
+        @check-change="handleCheckChange"
+      />
+    </el-dialog>
   </div>
 </template>
 <script setup>
@@ -25,27 +30,45 @@
    * @Date: 2022-12-31
    * @Description: 图层管理
    * @LastEditors: STILLMOREzzz
-   * @LastEditTime: 2022-12-31 12:06
+   * @LastEditTime: 2022-01-04 21:23
    * @FilePath: ztm-earth-vue3/src/components/LayerManager/index.js
    */
   import { ref } from "vue";
+  import { useLayerStore } from "@/stores/modules/layer";
+  import { storeToRefs } from "pinia";
+  import useCesium from "@/hooks/useCesium";
 
-  const layer = defineProps({
-    layerShow: {
-      type: Boolean,
-      default: false
-    }
-  });
-
-  const emits = defineEmits(["layer-toggle"]);
+  const Cesium = useCesium();
+  const layerStore = useLayerStore();
+  const { layerManagerShow, layers, defaultTree } = storeToRefs(layerStore);
 
   const title = ref("图层管理");
 
+  // 点击图层管理框中关闭的事件
   const onClose = () => {
-    emits("layer-toggle");
+    layerStore.closeLayerManagerShow();
+  };
+  // 点击图层管理框中每一条数据的事件
+  const handleNodeClick = (data) => {
+    console.log(data);
+  };
+
+  // 点击图层的复选框所触发的事件
+  const handleCheckChange = (data) => {
+    data.visible = !data.visible;
+    layerStore.toggleCesiumData(data, window.Viewer);
   };
 </script>
 <style scoped lang="less">
+  .one {
+    pointer-events: none;
+  }
+  :deep(.el-dialog) {
+    pointer-events: auto;
+    left: -50rem;
+    top: 10rem;
+  }
+
   .layer-manager {
     z-index: 990 - 20;
     position: absolute;
