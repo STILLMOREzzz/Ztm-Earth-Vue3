@@ -40,7 +40,17 @@ export default function useInitCesiumMap(viewerName = "cesiumContainer") {
     animation: false, // 动画控件
     timeline: true, // 时间控件
     shadows: false, // 显示阴影
-    shouldAnimate: true // 模型动画效果 大气
+    shouldAnimate: true, // 模型动画效果 大气
+    // 使用天地图基础底图
+    imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
+      url: "http://t{s}.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles&tk=d3e838aa7277f50df4ee4b5a1c09c067",
+      subdomains: ["0", "1", "2", "3", "4", "5", "6", "7"],
+      layer: "tdtImgLayer",
+      style: "default",
+      format: "image/jpeg",
+      tileMatrixSetID: "GoogleMapsCompatible",
+      show: true
+    })
   });
 
   viewer._cesiumWidget._creditContainer.style.display = "none"; //去除版权信息
@@ -65,4 +75,5 @@ export default function useInitCesiumMap(viewerName = "cesiumContainer") {
 
   // 将 Viewer 对象标记为非响应式，避免 Vue 响应式劫持产生的访问性能问题
   window.Viewer = markRaw(viewer); // 全局挂载方便调试
+  // 添加天地图作为基础底图
 }
