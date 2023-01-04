@@ -5,12 +5,22 @@
       v-model="layerManagerShow"
       destroy-on-close
       @close="onClose"
-      width="30%"
+      width="20%"
       :title="title"
       :modal="false"
       :close-on-click-modal="false"
     >
-      <el-tree :data="data" @node-click="handleNodeClick" />
+      <el-tree
+        ref="layerTree"
+        :data="layers"
+        @node-click="handleNodeClick"
+        :show-checkbox="true"
+        node-key="id"
+        default-expand-all
+        :check-strictly="true"
+        :default-checked-keys="defaultTree"
+        @check-change="handleCheckChange"
+      />
     </el-dialog>
   </div>
 </template>
@@ -20,81 +30,34 @@
    * @Date: 2022-12-31
    * @Description: 图层管理
    * @LastEditors: STILLMOREzzz
-   * @LastEditTime: 2022-01-02 12:34
+   * @LastEditTime: 2022-01-04 21:23
    * @FilePath: ztm-earth-vue3/src/components/LayerManager/index.js
    */
-  import { reactive, ref, onMounted } from "vue";
+  import { ref } from "vue";
   import { useLayerStore } from "@/stores/modules/layer";
   import { storeToRefs } from "pinia";
+  import useCesium from "@/hooks/useCesium";
 
+  const Cesium = useCesium();
   const layerStore = useLayerStore();
-  const { layerManagerShow } = storeToRefs(layerStore);
+  const { layerManagerShow, layers, defaultTree } = storeToRefs(layerStore);
 
   const title = ref("图层管理");
 
+  // 点击图层管理框中关闭的事件
   const onClose = () => {
     layerStore.closeLayerManagerShow();
   };
+  // 点击图层管理框中每一条数据的事件
   const handleNodeClick = (data) => {
     console.log(data);
   };
-  const data = reactive([
-    {
-      label: "Level one 1",
-      children: [
-        {
-          label: "Level two 1-1",
-          children: [
-            {
-              label: "Level three 1-1-1"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      label: "Level one 2",
-      children: [
-        {
-          label: "Level two 2-1",
-          children: [
-            {
-              label: "Level three 2-1-1"
-            }
-          ]
-        },
-        {
-          label: "Level two 2-2",
-          children: [
-            {
-              label: "Level three 2-2-1"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      label: "Level one 3",
-      children: [
-        {
-          label: "Level two 3-1",
-          children: [
-            {
-              label: "Level three 3-1-1"
-            }
-          ]
-        },
-        {
-          label: "Level two 3-2",
-          children: [
-            {
-              label: "Level three 3-2-1"
-            }
-          ]
-        }
-      ]
-    }
-  ]);
+
+  // 点击图层的复选框所触发的事件
+  const handleCheckChange = (data) => {
+    data.visible = !data.visible;
+    layerStore.toggleCesiumData(data, window.Viewer);
+  };
 </script>
 <style scoped lang="less">
   .one {
@@ -102,6 +65,8 @@
   }
   :deep(.el-dialog) {
     pointer-events: auto;
+    left: -50rem;
+    top: 10rem;
   }
 
   .layer-manager {

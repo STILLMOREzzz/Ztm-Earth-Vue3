@@ -26,7 +26,7 @@
    */
 
   import language from "./index_local.js";
-  import { ref, reactive } from "vue";
+  import { ref,  nextTick } from "vue";
   import { useLayerStore } from "@/stores/modules/layer";
   import { storeToRefs } from "pinia";
 
@@ -34,7 +34,9 @@
   const { layerManagerShow: layerShow } = storeToRefs(layerStore);
   const lang = ref(language.ch);
   const onLayerManagerToggle = () => {
-    layerStore.changeLayerManagerShow();
+    nextTick(() => {
+      layerStore.changeLayerManagerShow();
+    });
   };
 </script>
 <style scoped lang="less">
