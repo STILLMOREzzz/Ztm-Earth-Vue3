@@ -9,28 +9,6 @@
 import { defineStore } from "pinia";
 import { toggleCesiumTdtImage, toggleCesiumTerrain } from "@/hooks/useLoadCesiumResources";
 
-/**
- * 根据属性值来递归查找树形结构中的数据
- * @param id 属性
- * @param list 树形结构数据
- * @returns {null|*}
- */
-function findItemById(id, list) {
-  let res = list.find((item) => item.id == id);
-  if (res) {
-    return res;
-  } else {
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].children instanceof Array && list[i].children.length > 0) {
-        res = findItemById(id, list[i].children);
-        if (res) {
-          return res;
-        }
-      }
-    }
-    return null;
-  }
-}
 // 天地图token
 const tdtToken = "d3e838aa7277f50df4ee4b5a1c09c067";
 
@@ -103,6 +81,21 @@ export const useLayerStore = defineStore("layer", {
         default:
           console.log("格式不符合规定！");
       }
+    },
+    /**
+     * 监听图层管理器的开闭，并在每次开闭后重新计算defaultTree的值
+     * @param layers 树形数据
+     */
+    calculateDefaultTree(layers) {
+      layers.map((item) => {
+        if (item?.visible) {
+          this.defaultTree.push(item.id);
+        } else {
+          if (item.children) {
+            this.calculateDefaultTree(item.children);
+          }
+        }
+      });
     }
   }
 });

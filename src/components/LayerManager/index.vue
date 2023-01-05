@@ -33,10 +33,11 @@
    * @LastEditTime: 2022-01-04 21:23
    * @FilePath: ztm-earth-vue3/src/components/LayerManager/index.js
    */
-  import { ref } from "vue";
+  import { ref, watch } from "vue";
   import { useLayerStore } from "@/stores/modules/layer";
   import { storeToRefs } from "pinia";
   import useCesium from "@/hooks/useCesium";
+  import { findItemById } from "@/utils/tools";
 
   const Cesium = useCesium();
   const layerStore = useLayerStore();
@@ -50,7 +51,7 @@
   };
   // 点击图层管理框中每一条数据的事件
   const handleNodeClick = (data) => {
-    console.log(data);
+    // console.log(data);
   };
 
   // 点击图层的复选框所触发的事件
@@ -58,6 +59,12 @@
     data.visible = !data.visible;
     layerStore.toggleCesiumData(data, window.Viewer);
   };
+
+  // 监听图层管理器的开闭，并在每次开闭后重新计算defaultTree的值
+  watch(layerManagerShow, () => {
+    defaultTree.value.length = 0; // 清空defaultTree数组，在之后重新计算
+    layerStore.calculateDefaultTree(layers.value);
+  });
 </script>
 <style scoped lang="less">
   .one {
