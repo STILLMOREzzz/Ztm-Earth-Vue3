@@ -37,7 +37,6 @@
   import { useLayerStore } from "@/stores/modules/layer";
   import { storeToRefs } from "pinia";
   import useCesium from "@/hooks/useCesium";
-  import { findItemById } from "@/utils/tools";
 
   const Cesium = useCesium();
   const layerStore = useLayerStore();
@@ -72,8 +71,8 @@
   }
   :deep(.el-dialog) {
     pointer-events: auto;
-    left: -50rem;
-    top: 10rem;
+    left: -30%;
+    top: 15%;
   }
 
   .layer-manager {

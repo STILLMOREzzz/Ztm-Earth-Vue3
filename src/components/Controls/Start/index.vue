@@ -21,7 +21,7 @@
    * @Date: 2022-12-12
    * @Description: 开始模块
    * @LastEditors: STILLMOREzzz
-   * @LastEditTime: 2022-12-16 0:35
+   * @LastEditTime: 2023-01-12 15:07
    * @FilePath: ztm-earth-vue3/src/views/Controls/Start/index.js
    */
 
@@ -43,6 +43,7 @@
     background-size: contain;
     cursor: pointer;
   }
+  .navigation-button:hover,
   .navigation-button-active {
     background: url("../../../assets/img/controls/navigation_on.png") no-repeat;
     background-size: contain;

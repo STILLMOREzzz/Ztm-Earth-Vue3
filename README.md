@@ -1,7 +1,18 @@
 # earth-cesium-vue3
 ## About
 The cesium front-end project based on vue3
-## Stack of technology
+
+## Project setup
+Note that you will need to have Node.js installed.
+
+Fork or clone this repository. then:
+
+`npm install`
+
+🚀 Compiles and hot-reloads for development
+
+`npm run dev`
+## Dependencies
 - node 18.12.1
 - vue3 3.2.45
 - cesium 1.100.0

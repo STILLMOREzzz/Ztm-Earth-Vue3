@@ -3,11 +3,15 @@
  * @Date: 2023-01-01
  * @Description: 图层数据存储
  * @LastEditors: STILLMOREzzz
- * @LastEditTime: 2023-01-04 21:23
+ * @LastEditTime: 2023-01-12 17:19
  * @FilePath: ztm-earth-vue3/src/stores/modules/layer.js
  */
 import { defineStore } from "pinia";
-import { toggleCesiumTdtImage, toggleCesiumTerrain } from "@/hooks/useLoadCesiumResources";
+import {
+  toggleCesiumTdtImage,
+  toggleCesiumTerrain,
+  toggle3dtiles
+} from "@/hooks/useLoadCesiumResources";
 
 // 天地图token
 const tdtToken = "d3e838aa7277f50df4ee4b5a1c09c067";
@@ -25,6 +29,7 @@ export const useLayerStore = defineStore("layer", {
             id: 0,
             label: "天地图影像",
             visible: true,
+            uid: 0,
             layerName: "tdtImgLayer",
             type: "image",
             layerUrl: `http://t{s}.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles&tk=${tdtToken}`
@@ -33,6 +38,7 @@ export const useLayerStore = defineStore("layer", {
             id: 1,
             label: "天地图影像注记",
             visible: false,
+            uid: 1,
             layerName: "tdtCiaLayer",
             type: "image",
             layerUrl: `http://t{s}.tianditu.com/cia_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=cia&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default.jpg&tk=${tdtToken}`
@@ -41,12 +47,28 @@ export const useLayerStore = defineStore("layer", {
       },
       {
         id: -2,
-        label: "地形图层",
+        label: "模型图层",
         children: [
           {
             id: 2,
+            label: "北京地区建筑模型",
+            visible: false,
+            uid: 0,
+            layerId: "PekingTilest",
+            type: "3dtiles",
+            layerUrl: "http://localhost:9003/model/dX29aUq6/tileset.json"
+          }
+        ]
+      },
+      {
+        id: -3,
+        label: "地形图层",
+        children: [
+          {
+            id: 3,
             label: "全球地形",
             visible: false,
+            uid: 0,
             layerId: "worldTerrain",
             type: "terrain",
             layerUrl: undefined
@@ -66,13 +88,17 @@ export const useLayerStore = defineStore("layer", {
     /**
      * 通过勾选checkbox来加载或删除cesium数据
      * @param data 所点击的条目数据
-     * @param viewer 初始化viewer
+     * @param viewer
      */
     toggleCesiumData(data, viewer) {
       switch (data.type) {
         // 类型为影像
         case "image":
-          toggleCesiumTdtImage(data.layerUrl, data.layerName, data.visible, data.id);
+          toggleCesiumTdtImage(data.layerUrl, data.layerName, data.visible, data.uid);
+          break;
+        // 类型为模型
+        case "3dtiles":
+          toggle3dtiles(data.layerUrl, data.layerName, data.visible, data.uid, viewer);
           break;
         // 类型为地形
         case "terrain":
@@ -91,7 +117,7 @@ export const useLayerStore = defineStore("layer", {
         if (item?.visible) {
           this.defaultTree.push(item.id);
         } else {
-          if (item.children) {
+          if (item.children instanceof Array && item.children.length > 0) {
             this.calculateDefaultTree(item.children);
           }
         }

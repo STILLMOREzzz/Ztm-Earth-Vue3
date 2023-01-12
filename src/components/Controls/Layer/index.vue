@@ -21,7 +21,7 @@
    * @Date: 2022-12-12
    * @Description: 视图模块
    * @LastEditors: STILLMOREzzz
-   * @LastEditTime: 2022-01-02 12:34
+   * @LastEditTime: 2023-01-12 15:07
    * @FilePath: ztm-earth-vue3/src/views/Controls/Layer/index.js
    */
 
@@ -45,6 +45,7 @@
     background-size: contain;
     cursor: pointer;
   }
+  .layer-button:hover,
   .layer-button-active {
     background: url("../../../assets/img/controls/layerTree_on.png") no-repeat;
     background-size: contain;
