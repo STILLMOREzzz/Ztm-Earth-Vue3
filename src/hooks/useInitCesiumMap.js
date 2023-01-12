@@ -75,5 +75,4 @@ export default function useInitCesiumMap(viewerName = "cesiumContainer") {
 
   // 将 Viewer 对象标记为非响应式，避免 Vue 响应式劫持产生的访问性能问题
   window.Viewer = markRaw(viewer); // 全局挂载方便调试
-  // 添加天地图作为基础底图
 }

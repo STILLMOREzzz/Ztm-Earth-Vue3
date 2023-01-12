@@ -3,9 +3,16 @@
  * @Date: 2023-01-02
  * @Description: 包围盒的绘制函数
  * @LastEditors: STILLMOREzzz
- * @LastEditTime: 2023-01-02 13:54
+ * @LastEditTime: 2023-01-12 20:36
  * @FilePath: ztm-earth-vue3/src/utils/geosot/boundingBox.js
  */
+
+import useCesium from "@/hooks/useCesium";
+import { encode_geosot_3d, decode_geosot_3d, draw_surrounded_obb_primitive } from "./geosot.js";
+import request from "@/utils/request";
+import { removeDuplicates } from "@/utils/tools";
+
+const Cesium = useCesium();
 
 /**
  * 用来简单的测试
@@ -61,13 +68,13 @@ function testFeature() {
 }
 
 /**
- * 对应顶端 ‘绘制包围盒’ 按钮，实现对daYanTaTileset包围盒的绘制和geosot网格的绘制
+ *  ‘绘制包围盒’ ，实现对Tileset包围盒的绘制和geosot网格的绘制
  */
-function drawDaYanTaOBB() {
+function drawTilesetOBB(tileset, viewer) {
   // 获取包围盒的顶点坐标
-  let cornerPositions = this.addCornerPoint(daYanTaTileset);
+  let cornerPositions = addCornerPoint(tileset);
   // 绘制包围盒的线框
-  this.drawOBB(daYanTaTileset);
+  drawOBB(tileset, viewer);
 
   // 计算获得包围盒的长宽高 0,4,6,7
   let long = Cesium.Cartesian3.distance(cornerPositions[0], cornerPositions[7]);
@@ -80,10 +87,10 @@ function drawDaYanTaOBB() {
   let max = middle > height ? middle : height;
   console.log("max为：", max);
 
-  let center = daYanTaTileset._root._boundingVolume._orientedBoundingBox.center;
+  let center = tileset.root.boundingVolume._orientedBoundingBox.center;
   cornerPositions.push(center);
   // 获取包围盒角点的经纬度坐标
-  let cartographicPositions = this.cartesianToLatitudeLongitude(cornerPositions);
+  let cartographicPositions = cartesianToLatitudeLongitude(cornerPositions, viewer);
 
   /*
   // 获取三维物体对应的长方体外包编码（16进制）和层级
@@ -106,9 +113,9 @@ function drawDaYanTaOBB() {
   }
 
   // 去重后对网格进行绘制
-  codeArray = codeArray.removeDuplicates();
+  codeArray = removeDuplicates(codeArray);
   for (let i = 0; i < codeArray.length; i++) {
-    draw_surrounded_obb_primitive(codeArray[i]);
+    draw_surrounded_obb_primitive(codeArray[i], viewer);
   }
 
   // 获取顶点对应的26领域范围并绘制
@@ -152,49 +159,33 @@ function getDomainMeshDualMadeCoding(cartographicPositions, level = 19) {
   // 得到中心点坐标的6邻域并去重
   let hexEncoding = [];
   for (let i = 0; i < codeArray.length; i++) {
-    // todo：把jquery的形式修改为axios，下同 --2023.01.02
-    $.ajax({
+    request({
       url: "https://www.iwhere.com/iwhereEngine/geosot3d/point3d",
-      async: false,
-      data: `lat=${codeArray[i][0]}&lng=${codeArray[i][1]}&height=${codeArray[i][2]}&geo_level=${level}`,
-      success: function (data) {
-        $.ajax({
-          url: "https://www.iwhere.com/iwhereEngine/geosot3d/adjoin6_geo_num",
-          async: false,
-          data: `geo_num=${data.geo_num}&geo_level=${level}`,
-          success: function (data2) {
-            hexEncoding.push(data2.geo_num_list);
-          },
-          error: function (dataCode) {
-            console.log("失败" + dataCode);
-          },
-          type: "POST"
-        });
-      },
-      error: function (dataCode) {
-        console.log("失败" + dataCode);
-      },
-      type: "POST"
+      method: "post",
+      data: `lat=${codeArray[i][0]}&lng=${codeArray[i][1]}&height=${codeArray[i][2]}&geo_level=${level}`
+    }).then((data) => {
+      request({
+        url: "https://www.iwhere.com/iwhereEngine/geosot3d/point3d",
+        method: "post",
+        data: `geo_num=${data.geo_num}&geo_level=${level}`
+      }).then((data2) => {
+        hexEncoding.push(data2.geo_num_list);
+      });
     });
   }
   let hexadecimalEncodedArray = [];
   for (let i = 0; i < hexEncoding.length; i++) {
     hexadecimalEncodedArray = [...hexadecimalEncodedArray, ...hexEncoding[i]];
   }
-  hexadecimalEncodedArray = hexadecimalEncodedArray.removeDuplicates(); // 16进制网格编码
+  hexadecimalEncodedArray = removeDuplicates(hexadecimalEncodedArray); // 16进制网格编码
   let centerPpoint3D = [];
   for (let i = 0; i < hexadecimalEncodedArray.length; i++) {
-    $.ajax({
+    request({
       url: "https://www.iwhere.com/iwhereEngine/geosot3d/center_point3d",
-      async: false,
-      data: `geo_num=${hexadecimalEncodedArray[i]}&geo_level=${level}`,
-      success: function (data3) {
-        centerPpoint3D.push(encode_geosot_3d(level, data3.lat, data3.lng, data3.height));
-      },
-      error: function (dataCode) {
-        console.log("失败" + dataCode);
-      },
-      type: "POST"
+      method: "post",
+      data: `geo_num=${hexadecimalEncodedArray[i]}&geo_level=${level}`
+    }).then((data3) => {
+      centerPpoint3D.push(encode_geosot_3d(level, data3.lat, data3.lng, data3.height));
     });
   }
   return centerPpoint3D;
@@ -209,18 +200,13 @@ function getOBBGeoSOTCode(cartographicPositions, height) {
   // let height = Cesium.Cartesian3.distance(cornerPositions[0],cornerPositions[6]);
   let geo_level = 19;
   let responsedata;
-  $.ajax({
+  request({
     url: "https://www.iwhere.com/iwhereEngine/geosot3d/rcuboid_buffer",
-    async: false,
-    data: `lat_left_top=${cartographicPositions[5][0]}&lng_left_top=${cartographicPositions[5][1]}&lat_right_bottom=${cartographicPositions[4][0]}&lng_right_bottom=${cartographicPositions[4][1]}&height_start=${cartographicPositions[4][2]}&height=${height}&geo_level=${geo_level}`,
-    success: function (data) {
-      console.log(data);
-      responsedata = data;
-    },
-    error: function (dataCode) {
-      console.log("失败" + dataCode);
-    },
-    type: "POST"
+    method: "post",
+    data: `lat_left_top=${cartographicPositions[5][0]}&lng_left_top=${cartographicPositions[5][1]}&lat_right_bottom=${cartographicPositions[4][0]}&lng_right_bottom=${cartographicPositions[4][1]}&height_start=${cartographicPositions[4][2]}&height=${height}&geo_level=${geo_level}`
+  }).then((data) => {
+    console.log(data);
+    responsedata = data;
   });
   return responsedata;
 }
@@ -230,7 +216,7 @@ function getOBBGeoSOTCode(cartographicPositions, height) {
  * @param cornerPositions 笛卡尔坐标，要求为一个数组
  * @return 一个经纬度坐标数组
  */
-function cartesianToLatitudeLongitude(cornerPositions) {
+function cartesianToLatitudeLongitude(cornerPositions, viewer) {
   let cartographicPositions = new Array();
   for (let i = 0; i < cornerPositions.length; i++) {
     let cartographic = viewer.scene.globe.ellipsoid.cartesianToCartographic(cornerPositions[i]);
@@ -247,17 +233,17 @@ function cartesianToLatitudeLongitude(cornerPositions) {
  * 绘制tileset的包围盒线框
  * @param: tileset viewer.scene.primitives.add()操作成功之后的tileset
  */
-function drawOBB(tileset) {
-  // 获取整体3dtileset的包围盒属性 daYanTaTileset._root._boundingVolume
+function drawOBB(tileset, viewer) {
+  // 获取整体3dtileset的包围盒属性 Tileset._root._boundingVolume
   let a = tileset._root._boundingVolume._orientedBoundingBox.halfAxes;
   let center = tileset._root._boundingVolume._orientedBoundingBox.center;
 
   // 添加一个Tileset的OrientedBoundingBox(包围盒)
-  obb = new Cesium.OrientedBoundingBox(center, a);
+  let obb = new Cesium.OrientedBoundingBox(center, a);
   var bs = Cesium.BoundingSphere.fromOrientedBoundingBox(obb);
 
   // Cesium.GeometryPipeline.toWireframe 将几何的三角形索引转换为线索引
-  geometry = Cesium.GeometryPipeline.toWireframe(
+  let geometry = Cesium.GeometryPipeline.toWireframe(
     Cesium.BoxGeometry.createGeometry(
       Cesium.BoxGeometry.fromDimensions({
         dimensions: new Cesium.Cartesian3(2.0, 2.0, 2.0),
@@ -637,3 +623,5 @@ function addTileCornerPoint(tile) {
   cornerPostions.push(center);
   return cornerPostions;
 }
+
+export { drawTilesetOBB };

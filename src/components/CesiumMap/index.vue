@@ -11,12 +11,15 @@
    * @LastEditTime: 2022-12-16 10:03
    * @FilePath: ztm-earth-vue3/src/components/CesiumMap/index.js
    */
-  import { onMounted, computed } from "vue";
+  import { onMounted, computed, markRaw } from "vue";
   import useInitCesiumMap from "@/hooks/useInitCesiumMap";
   import { useLoadingStore } from "@/stores/modules/loading";
   import { startLoading, endLoading } from "@/utils/loading";
   import CesiumNavigation from "@/hooks/useNavigation";
+  import nProgress from "nprogress";
+  import useCesium from "@/hooks/useCesium";
 
+  const Cesium = useCesium();
   const appStore = useLoadingStore();
   const cesiumLoading = computed(() => appStore.getPageLoading);
 
