@@ -104,7 +104,7 @@ function drawTilesetOBB(tileset, viewer) {
     // 19级有点小，18级太大
     codeArray.push(
       encode_geosot_3d(
-        18,
+        15,
         cartographicPositions[i][0],
         cartographicPositions[i][1],
         cartographicPositions[i][2]

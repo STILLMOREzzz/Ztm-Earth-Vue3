@@ -17,6 +17,9 @@ coverage
 /cypress/videos/
 /cypress/screenshots/
 
+# 将网格绘制代码设置为不提交
+src/utils/geosot
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
