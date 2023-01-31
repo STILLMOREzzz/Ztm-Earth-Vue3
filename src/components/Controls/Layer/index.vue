@@ -27,9 +27,9 @@
 
   import language from "./index_local.js";
   import { ref, nextTick } from "vue";
-  import { useLayerStore } from "@/stores/modules/layer";
-  import { storeToRefs } from "pinia";
 
+  import { storeToRefs } from "pinia";
+  import { useLayerStore } from "@/stores/modules/layer";
   const layerStore = useLayerStore();
   const { layerManagerShow: layerShow } = storeToRefs(layerStore);
   const lang = ref(language.ch);
