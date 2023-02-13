@@ -3,7 +3,10 @@ const ch = {
   navigation: "导航控件",
   location: "定位",
   earth: "全球",
-  china: "中国"
+  china: "中国",
+  interaction: "交互",
+  depthDetection: "深度检测",
+  mousePickUp: "鼠标拾取"
 };
 
 const en = {

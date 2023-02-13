@@ -18,7 +18,8 @@ coverage
 /cypress/screenshots/
 
 # 将网格绘制代码设置为不提交
-src/utils/geosot
+src/utils/geosot/boundingBox.js
+src/utils/geosot/geosot.js
 
 # Editor directories and files
 .vscode/*
