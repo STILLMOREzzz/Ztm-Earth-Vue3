@@ -41,6 +41,43 @@
           <span class="list-item-name">{{ lang.mousePickUp }}</span>
         </div>
       </div>
+
+      <div class="controls-list-item">
+        <span class="controls-list-name">{{ lang.search }}</span>
+        <el-input
+          v-model="input"
+          placeholder="请输入网格编码进行查询"
+          class="controls-search-box"
+          :suffix-icon="Search"
+        />
+        <el-button class="m-2" ref="buttonRef" v-click-outside="onClickOutside" @click="search">
+          查询
+        </el-button>
+        <el-popover
+          ref="popoverRef"
+          :virtual-ref="buttonRef"
+          popper-class="monitor-popper"
+          :offset="27"
+          placement="bottom-end"
+          :width="850"
+          trigger="click"
+          virtual-triggering
+        >
+          <el-table :data="gridData">
+            <el-table-column width="50" property="id" label="id" />
+            <el-table-column width="100" property="name" label="name" />
+            <el-table-column width="300" property="grid_code" label="grid_code" />
+            <el-table-column width="300" property="url" label="url" />
+            <el-table-column fixed="right" label="Operations" width="50">
+              <template #default="scope">
+                <el-button link type="primary" size="small" @click.prevent="flyTo(scope.$index)">
+                  加载
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-popover>
+      </div>
     </div>
   </div>
 </template>
@@ -56,15 +93,55 @@
    */
 
   import language from "./index_local.js";
-  import { ref, watch } from "vue";
+  import { ref, unref, watch, toRaw } from "vue";
   import { Cartesian3, Math } from "cesium";
   import useCesium from "@/hooks/useCesium";
+  import { ClickOutside as vClickOutside } from "element-plus";
+  import { Search } from "@element-plus/icons-vue";
+  import { getGridCode } from "@/api/gridCode";
 
   const Cesium = useCesium();
   const lang = ref(language.ch);
-  const navigationShow = ref(true);
-  const depthDetectionShow = ref(false);
-  const mousePickUpShow = ref(false);
+
+  // 用于搜索框
+  const input = ref("");
+  const buttonRef = ref();
+  const popoverRef = ref();
+  const gridData = ref();
+  /**
+   * 通过输入框中的值来发送请求并展示相关数据
+   */
+  const search = () => {
+    getGridCode(input.value).then((res) => {
+      console.log(res);
+      gridData.value = res.data;
+    });
+  };
+  // proper虚拟触发
+  const onClickOutside = () => {
+    unref(popoverRef).popperRef?.delayHide?.();
+  };
+  // proper中加载按钮的事件，跳转到url所在的模型数据，之后需要进行优化
+  const flyTo = (index) => {
+    const list = toRaw(gridData.value);
+    const testTileset = window.Viewer.scene.primitives.add(
+      new Cesium.Cesium3DTileset({
+        url: list[index].url
+      })
+    );
+    testTileset.readyPromise.then(function (layer) {
+      // tileset的边界球
+      let boundingSphere = layer.boundingSphere;
+      // 跳到边界球范围
+      window.Viewer.camera.flyToBoundingSphere(
+        boundingSphere,
+        new Cesium.HeadingPitchRange(0.0, -0.5, boundingSphere.radius)
+      );
+      // 绑定相机所在的位置：必须设置，否则左键移动变成单点定位
+      window.Viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+    });
+  };
+
   // 跳转到全球视角
   const flyToEarth = () => {
     window.Viewer.camera.flyTo({
@@ -93,6 +170,7 @@
   };
 
   // 鼠标拾取事件
+  const mousePickUpShow = ref(false);
   const mousePickUp = () => {
     mousePickUpShow.value ? clearPickController() : pickController();
   };
@@ -171,6 +249,7 @@
   };
 
   // 设置深度测试
+  const depthDetectionShow = ref(false);
   watch(depthDetectionShow, () => {
     depthDetectionShow.value
       ? (window.Viewer.scene.globe.depthTestAgainstTerrain = true)
@@ -178,6 +257,7 @@
   });
 
   // 设置导航空间的显隐
+  const navigationShow = ref(true);
   watch(navigationShow, () => {
     navigationShow.value
       ? (document.getElementById("navigationDiv").style.visibility = "visible")
