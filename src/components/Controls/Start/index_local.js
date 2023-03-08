@@ -6,7 +6,8 @@ const ch = {
   china: "中国",
   interaction: "交互",
   depthDetection: "深度检测",
-  mousePickUp: "鼠标拾取"
+  mousePickUp: "鼠标拾取",
+  search: "网格编码"
 };
 
 const en = {

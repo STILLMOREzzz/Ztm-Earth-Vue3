@@ -3,7 +3,7 @@
  * @Date: 2023-01-01
  * @Description: 图层数据存储
  * @LastEditors: STILLMOREzzz
- * @LastEditTime: 2023-01-12 17:19
+ * @LastEditTime: 2023-03-08 16:32
  * @FilePath: ztm-earth-vue3/src/stores/modules/layer.js
  */
 import { defineStore } from "pinia";
@@ -16,6 +16,7 @@ import {
 // 天地图token
 const tdtToken = "d3e838aa7277f50df4ee4b5a1c09c067";
 
+//todo：写一个全局的状态id，在每次添加新的图层时，从某个数开始累加。如何确定类型是image还是3dtiles？
 export const useLayerStore = defineStore("layer", {
   state: () => ({
     layerManagerShow: false,
@@ -56,7 +57,8 @@ export const useLayerStore = defineStore("layer", {
             uid: 0,
             layerId: "PekingTilest",
             type: "3dtiles",
-            layerUrl: "http://localhost:9003/model/dX29aUq6/tileset.json"
+            // layerUrl: "http://localhost:9003/model/dX29aUq6/tileset.json"
+            layerUrl: "http://localhost:9003/model/uA2wve7p/tileset.json"
           }
         ]
       },
