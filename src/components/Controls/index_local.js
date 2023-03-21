@@ -3,6 +3,7 @@ const ch = {
   Measure: "测量",
   Layer: "图层",
   Tileset: "瓦片",
+  Analysis: "分析",
   Other: "其他"
 };
 

@@ -58,7 +58,7 @@
           :virtual-ref="buttonRef"
           popper-class="monitor-popper"
           :offset="27"
-          placement="bottom-end"
+          placement="bottom"
           :width="850"
           trigger="click"
           virtual-triggering
@@ -66,12 +66,31 @@
           <el-table :data="gridData">
             <el-table-column width="50" property="id" label="id" />
             <el-table-column width="100" property="name" label="name" />
-            <el-table-column width="300" property="grid_code" label="grid_code" />
-            <el-table-column width="300" property="url" label="url" />
-            <el-table-column fixed="right" label="Operations" width="50">
+            <el-table-column width="200" property="grid_code" label="grid_code" />
+            <el-table-column width="200" property="url" label="url" />
+            <el-table-column fixed="right" label="Operations" width="75">
               <template #default="scope">
                 <el-button link type="primary" size="small" @click.prevent="flyTo(scope.$index)">
-                  加载
+                  加载模型
+                </el-button>
+              </template>
+            </el-table-column>
+            <el-table-column fixed="right" label="Operations" width="75">
+              <template #default="scope">
+                <el-button link type="primary" size="small" @click.prevent="drawOBB(scope.$index)">
+                  绘制网格
+                </el-button>
+              </template>
+            </el-table-column>
+            <el-table-column fixed="right" label="Operations" width="120">
+              <template #default="scope">
+                <el-button
+                  link
+                  type="primary"
+                  size="small"
+                  @click.prevent="showIndependenceModel(scope.$index)"
+                >
+                  独立三维建筑模型
                 </el-button>
               </template>
             </el-table-column>
@@ -88,17 +107,22 @@
    * @Date: 2022-12-12
    * @Description: 开始模块
    * @LastEditors: STILLMOREzzz
-   * @LastEditTime: 2023-03-08 16:32
+   * @LastEditTime: 2023-03-17 20:22
    * @FilePath: ztm-earth-vue3/src/views/Controls/Start/index.js
    */
 
   import language from "./index_local.js";
-  import { ref, unref, watch, toRaw } from "vue";
+  import { ref, unref, watch, toRaw, nextTick } from "vue";
   import { Cartesian3, Math } from "cesium";
   import useCesium from "@/hooks/useCesium";
   import { ClickOutside as vClickOutside } from "element-plus";
   import { Search } from "@element-plus/icons-vue";
   import { getGridCode } from "@/api/gridCode";
+  import { useModelPopoverStore } from "@/stores/modules/ModelPopover";
+  import { storeToRefs } from "pinia";
+
+  const modelPopoverStore = useModelPopoverStore();
+  const { ModelPopoverShow } = storeToRefs(modelPopoverStore);
 
   const Cesium = useCesium();
   const lang = ref(language.ch);
@@ -142,6 +166,18 @@
     });
   };
 
+  // 绘制模型包围盒
+  const drawOBB = () => {
+    console.log("123");
+  };
+  // 展示独立三维模型的列表
+  const showIndependenceModel = () => {
+    nextTick(() => {
+      modelPopoverStore.changeModelPopoverShow();
+    });
+    // 获取独立模型数据
+    modelPopoverStore.getGridCode();
+  };
   // 跳转到全球视角
   const flyToEarth = () => {
     window.Viewer.camera.flyTo({
@@ -282,8 +318,7 @@
     background-size: contain;
     cursor: pointer;
   }
-  .flyToEarth-button:hover,
-  .flyToEarth-button-active {
+  .flyToEarth-button:hover {
     background: url("../../../assets/img/controls/earth_on.png") no-repeat;
     background-size: contain;
     cursor: pointer;
@@ -294,8 +329,7 @@
     background-size: contain;
     cursor: pointer;
   }
-  .flyToChina-button:hover,
-  .flyToChina-button-active {
+  .flyToChina-button:hover {
     background: url("../../../assets/img/controls/china_on.png") no-repeat;
     background-size: contain;
     cursor: pointer;

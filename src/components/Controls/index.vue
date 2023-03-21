@@ -13,6 +13,7 @@
       <component :is="currentTab"></component>
     </keep-alive>
     <layer-manager></layer-manager>
+    <model-popover></model-popover>
   </div>
 </template>
 
@@ -33,13 +34,14 @@
   import Layer from "@/components/Controls/Layer/index.vue";
   import Tileset from "@/components/Controls/Tileset/index.vue";
   import Other from "@/components/Controls/Other/index.vue";
+  import Analysis from "@/components/Controls/Analysis/index.vue";
 
   function initControls() {
     onBeforeMount(() => {});
   }
 
   export default defineComponent({
-    components: { Start, Messure, Layer, Tileset, Other },
+    components: { Start, Messure, Layer, Tileset, Analysis, Other },
     setup() {
       const langCh = ref(language.ch);
       const currentTab = ref("Start"); // 控制当前显示的组件

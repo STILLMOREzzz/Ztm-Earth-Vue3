@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     ElRow: typeof import('element-plus/es')['ElRow']
     Layer: typeof import('./src/components/Controls/Layer/index.vue')['default']
     LayerManager: typeof import('./src/components/LayerManager/index.vue')['default']
+    ModelPopover: typeof import('./src/components/ModelPopover/index.vue')['default']
     Measure: typeof import('./src/components/Controls/Measure/index.vue')['default']
     Other: typeof import('./src/components/Controls/Other/index.vue')['default']
     PanelMenu: typeof import('./src/components/PanelMenu/index.vue')['default']
